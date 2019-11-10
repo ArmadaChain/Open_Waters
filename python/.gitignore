@@ -1,0 +1,5 @@
+/venv
+/build
+/dist
+/open_waters.egg-info
+/.idea
