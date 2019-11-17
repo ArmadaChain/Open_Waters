@@ -22,7 +22,7 @@ async function test() {
 		result = error
 	}
 	
-	console.log(result.response.data)
+	console.log(result.data)
 }
 
 test()
