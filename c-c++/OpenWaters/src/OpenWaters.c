@@ -18,10 +18,10 @@ extern char g_SessionSize;
 
 extern int CreateSession(void *);
 extern void* Process(const void *session, void *msg, int len);
-extern int DetroySession(void *);
+extern int DestroySession(void *);
 
 
-ARMADA_API OpenWaters *CreateOpenWaters(const char *key)
+OPENWATERS_API OpenWaters *CreateOpenWaters(const char *key)
 {
 	OpenWaters *openWaters = (OpenWaters*)malloc(sizeof(OpenWaters));
 	if (openWaters)
@@ -43,7 +43,7 @@ ARMADA_API OpenWaters *CreateOpenWaters(const char *key)
 	return NULL;
 }
 
-ARMADA_API void SetData(const char *id, const char *data, const char *memo, OpenWaters *openWaters)
+OPENWATERS_API void SetData(const char *id, const char *data, const char *memo, OpenWaters *openWaters)
 {
 	if (id != NULL) {
 		strcpy_s(openWaters->m_ActivityId, OW_ID_LEN, id);
@@ -57,7 +57,7 @@ ARMADA_API void SetData(const char *id, const char *data, const char *memo, Open
 }
 
 
-ARMADA_API int PostRequest(OpenWaters *openWaters)
+OPENWATERS_API int PostRequest(OpenWaters *openWaters)
 {
 	int code = -1;
 	const char *header_fmt = "POST /data?apikey=%s HTTP/1.1\r\n" \
@@ -98,7 +98,7 @@ ARMADA_API int PostRequest(OpenWaters *openWaters)
 	return code;
 }
 
-ARMADA_API int GetRequest(OpenWaters *openWaters)
+OPENWATERS_API int GetRequest(OpenWaters *openWaters)
 {
 	int code = -1;
 	const char *msg_fmt = "GET /data?apikey=%s&activityId=%s HTTP/1.1\r\n" \
@@ -125,7 +125,20 @@ ARMADA_API int GetRequest(OpenWaters *openWaters)
 	return code;
 }
 
-ARMADA_API void DetroyOpenWaters(OpenWaters *openWaters)
+OPENWATERS_API void DestroyOpenWaters(OpenWaters *openWaters)
 {
-	DetroySession(openWaters->m_Connection);
+	if (g_Key != NULL)
+	{
+		free(g_Key);
+	}
+	if (openWaters != NULL)
+	{
+		if (openWaters->m_Connection != NULL)
+		{
+			DestroySession(openWaters->m_Connection);
+			free(openWaters->m_Connection);
+		}
+		free(openWaters);
+	}
+	
 }

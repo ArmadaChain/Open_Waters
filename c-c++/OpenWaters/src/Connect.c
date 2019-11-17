@@ -52,11 +52,11 @@ typedef struct session
 
 } Session;
 
-int g_SessionSize = sizeof(ARMADA_API);
+int g_SessionSize = sizeof(Session);
 
 int CreateSession(void *);
 void* Process(const void *session, const void *msg, int len);
-int DetroySession(void *);
+int DestroySession(void *);
 
 
 int CreateSession(void *session)
@@ -158,7 +158,7 @@ void* Process(const void *session, const void *msg, int len)
 	return NULL;
 }
 
-int DetroySession(void *session)
+int DestroySession(void *session)
 {
 	closesocket(((Session*)session)->m_SockFd);
 	WSACleanup();

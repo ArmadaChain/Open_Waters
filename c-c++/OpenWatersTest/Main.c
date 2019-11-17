@@ -9,6 +9,6 @@ int main()
 	int code = GetRequest(ow);
 	//SetData("123", "{lat: 37.7749, long: 122.4194, id: 12}", "checking", ow);
 	//int code = PostRequest(ow);
-	DetroyOpenWaters(ow);
+	DestroyOpenWaters(ow);
 	return 0;
 }
