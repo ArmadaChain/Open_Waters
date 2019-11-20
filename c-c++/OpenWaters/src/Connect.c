@@ -1,22 +1,10 @@
-#include "OpenWaters.h"
-#include "config.h"
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "OpenWaters.h"
+#include "config.h"
 
-
-#ifdef UNIX
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-
-typedef int SOCK_FD;
-
-
-#else
-//include windows library
+#ifdef WIN32
 #include <WinSock2.h>
 #include <ws2def.h>
 #include <WS2tcpip.h>
@@ -25,6 +13,16 @@ typedef int SOCK_FD;
 #pragma comment(lib,"ws2_32.lib")
 
 typedef SOCKET SOCK_FD;
+#else
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <netdb.h> 
+#include <arpa/inet.h>
+
+#define INVALID_SOCKET ~0
+typedef int SOCK_FD;
 
 #endif
 
@@ -41,62 +39,58 @@ static int g_Port = 80;
 typedef struct session
 {
 	SOCK_FD m_SockFd;
-	int m_Error;
-#if WIN32
-	WSADATA g_WasData;
-	SOCKADDR_IN m_Server;
-#endif
-
 } Session;
-
-int g_SessionSize = sizeof(Session);
 
 int CreateSession(void **session)
 {
 	Session *ss = (Session*)malloc(sizeof(Session));
-	if (ss != NULL)
-	{
+	if (ss != NULL)	{
 		*session = ss;
 	}
+	struct sockaddr_in server;
 #ifdef WIN32
-	if (WSAStartup(MAKEWORD(2, 2), &ss->g_WasData) != 0)
+	WSADATA wasData;
+	if (WSAStartup(MAKEWORD(2, 2), &wasData) != 0)
 	{
-		printf("Failed. Error code: %d.", WSAGetLastError());
+		printf("WSAStartup() Failed error code: %d", WSAGetLastError());
 		free(ss);
 		ss = NULL;
 		return -1;
 	}
+#endif
 	//Create socket
 	ss->m_SockFd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (ss->m_SockFd  == INVALID_SOCKET)
 	{
-		printf("Could not create socket: %d.", WSAGetLastError());
+		printf("Could not create socket");
+#ifdef WIN32
 		WSACleanup();
+#endif
 		free(ss);
 		ss = NULL;
 		return -1;
 	}
 
 	//Set server and port
-	memset(&ss->m_Server, 0, sizeof(SOCKADDR_IN));
-	inet_pton(AF_INET, g_Ip, &ss->m_Server.sin_addr.s_addr);
-	ss->m_Server.sin_family = AF_INET;
-	ss->m_Server.sin_port = htons(g_Port);
+	memset(&server, 0, sizeof(server));
+	inet_pton(AF_INET, g_Ip, &server.sin_addr.s_addr);
+	server.sin_family = AF_INET;
+	server.sin_port = htons(g_Port);
 
 	//connect to server
-	if (connect(ss->m_SockFd, (SOCKADDR*)&ss->m_Server, sizeof(ss->m_Server)) < 0)
+	if (connect(ss->m_SockFd, (struct sockaddr*)&server, sizeof(server)) < 0)
 	{
-		printf("Could not connect to server: %d.", WSAGetLastError());
-		closesocket(ss->m_SockFd);
+		printf("Could not connect to server");
+#ifdef WIN32
+		closesocket(((Session*)(*session))->m_SockFd);
 		WSACleanup();
+#else 
+		close(((Session*)(*session))->m_SockFd);
+#endif
 		free(ss);
 		ss = NULL;
 		return -1;
 	}
-#else
-	//implement for Linux system
-#endif // WIN32
-
 	return 0;
 }
 
@@ -164,8 +158,12 @@ void DestroySession(void **session)
 {
 	if (*session != NULL)
 	{
+#ifdef WIN32
 		closesocket(((Session*)(*session))->m_SockFd);
 		WSACleanup();
+#else 
+		close(((Session*)(*session))->m_SockFd);
+#endif
 		free(*session);
 		*session = NULL;
 	}
