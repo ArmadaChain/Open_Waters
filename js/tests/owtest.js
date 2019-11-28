@@ -15,7 +15,7 @@ readline.question(`How many iterations: `, (tests) => {
   for (var i=0; tests, i<tests; i++)
 	{
 		var t0 = performance.now();
-		request.post('http://3.132.236.222/data?apikey=XriiU6sm19UUCJwm15ky', {
+		request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com/data?apikey=XriiU6sm19UUCJwm15ky', {
 		  json: {
 		    "activityId": 123,
 		    "data":"{OW TESTINGADSFJA DFsdf}",
