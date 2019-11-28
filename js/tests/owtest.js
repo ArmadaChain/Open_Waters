@@ -12,13 +12,14 @@ const readline = require('readline').createInterface({
 })
 
 readline.question(`How many iterations: `, (tests) => {
+  var t11 = performance.now();
   for (var i=0; tests, i<tests; i++)
 	{
-		var t0 = performance.now();
-		request.post('http://3.132.236.222/data?apikey=XriiU6sm19UUCJwm15ky', {
+		// var t0 = performance.now();
+		request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com ', { //new backend used
 		  json: {
 		    "activityId": 123,
-		    "data":"{OW TESTINGADSFJA DFsdf}",
+		    "data":"{Checking issues }",
 		    "memo": "checking"
 		  }
 		}, (error, res, body) => {
@@ -27,24 +28,28 @@ readline.question(`How many iterations: `, (tests) => {
 		    return
 		  }
 
-		  if(res.statusCode == 500 )
-		  {
-		  	fail++;
-		  	console.log("still running... "+ "FAILED " + trial+"/"+tests);
-		  }
-		  else{
-		  	console.log("still running... "+ trial+"/"+tests);
-		  }
+		  // if(res.statusCode == 500 )
+		  // {
+		  // 	fail++;
+		  // 	console.log("still running... "+ "FAILED " + trial+"/"+tests);
+		  // }
+		  // else{
+		  // 	console.log("still running... "+ trial+"/"+tests);
+		  // }
 
-		  var t1 = performance.now();
+		  // var t1 = performance.now();
 		  trial++;
-		  sleep.sleep(2);
+		  // sleep.sleep(2);
 		  if(trial == tests)
 			{
-				console.log("Results: " + (trial - fail) + " passed out of " + trial);
+				// console.log("Results: " + (trial - fail) + " passed out of " + trial);
+				var t12 = performance.now();
+				console.log("speed ="+ (t12-t11) + "finished");
 			}
 		})
 		
 	}
+
+
   readline.close()
 })
