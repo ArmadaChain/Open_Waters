@@ -15,13 +15,8 @@ readline.question(`How many iterations: `, (tests) => {
   var t11 = performance.now();
   for (var i=0; tests, i<tests; i++)
 	{
-<<<<<<< HEAD
-		// var t0 = performance.now();
-		request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com ', { //new backend used
-=======
 		var t0 = performance.now();
 		request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com/data?apikey=XriiU6sm19UUCJwm15ky', {
->>>>>>> ab04a847772a0536b7780ff7e1dc48eee1fbb8e6
 		  json: {
 		    "activityId": 123,
 		    "data":"{Checking issues }",
