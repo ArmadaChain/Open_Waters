@@ -16,8 +16,8 @@ readline.question(`How many transactions: `, (tests) => {
   for (var i=0; tests, i<tests; i++)
 	{
 		var t0 = performance.now();
-		// request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com/data?apikey=XriiU6sm19UUCJwm15ky', {
-		request.post('http://localhost:8080/data?apikey=XriiU6sm19UUCJwm15ky', {
+		request.post('http://awseb-e-v-AWSEBLoa-1O1AIXZPQ2AP3-1256927148.us-east-2.elb.amazonaws.com/data?apikey=XriiU6sm19UUCJwm15ky', {
+		// request.post('http://localhost:8080/data?apikey=XriiU6sm19UUCJwm15ky', {
 
 		  json: {
 		    "activityId": 123,
