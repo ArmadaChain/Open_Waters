@@ -14,6 +14,11 @@
 - List_Active_Flows
 - Destroy_Flow
 - Get_Flow_Info
+- Flow_Add_Step
+- Flow_Delete_Step
+- Flow_Validate_Step
+- Flow_Upload_Document
+- Flow_Modify_Step
 - Modify_Flow
 - Upload_Document
 - ** Information **
@@ -47,10 +52,17 @@ List_Active_Flows()
 
 Destroy_Flow(ArmadaID Business Flow ID)
 : Destroys business flow from ID
-: Requires approval from majority of partners\
+: Requires approval from majority of partners
 
 Get_Business_Flow_Info
-: Return Steps 
+: Return number of steps 
+: Return parties involved
+
+Flow_Add_Step(int stepNum, Armada ID validator, data data)
+: Add new step to business flow
+: Data To be determined
+
+
 
 
 
