@@ -27,6 +27,12 @@
 - Audit Data
 - **Notifications **
 - Notifications
+- ** Future **
+- Create Asset
+- Delete Asset
+- Modify Asset
+- Transfer Asset
+- Assign Asset
 
 
 ### Specifics
@@ -58,10 +64,23 @@ Get_Business_Flow_Info
 : Return number of steps 
 : Return parties involved
 
-Flow_Add_Step(int stepNum, Armada ID validator, data data)
+Flow_Add_Step(ArmadaID Business Flow ID, int stepNum, Armada ID validator, data data)
 : Add new step to business flow
-: Data To be determined
+: Data will be parameters same as in the web interface
 
+Flow_Delete_Step(ArmadaID Business Flow ID, int stepNum)
+: Delete Step from Business Flow
+
+Flow_Validate_Step(ArmadaID Business Flow ID, int stepNum)
+: Validate step in business flow
+: Must be from assigned validated party (not sure how we will validate for now)
+
+Flow_Upload_Document(ArmadaID Business Flow ID, Document Document)
+: Upload document to specific step in business flow
+
+Flow_Modify_Step(ArmadaID Business Flow ID, int stepNum, data data)
+: Modify existing step in business flow
+: Need to define data that is going to be repalced (will improve this process)
 
 
 
