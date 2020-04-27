@@ -3,7 +3,7 @@ const err = require('../error')
 const {required} = require('../validation')
 const BASE_ENDPOINT = 'customers'
 
-const create = async (username = required(), email = required(), {name, company}) => {
+const create = async (username = required(), email = required(), name, company) => {
   try {
     const acc = {username, email}
     if (name) acc.name = name
@@ -38,7 +38,7 @@ const list = async () => {
   }
 }
 
-const update = async (accountId = required(), {name, email, company}) => {
+const update = async (accountId = required(), name, email, company) => {
   try {
     const acc = {}
     if (name) acc.name = name
