@@ -4,4 +4,21 @@ const document = require('./document')
 const flow = require('./flow')
 const step = require('./step')
 
-module.exports = {account, dataset, document, flow, step}
+module.exports = (apikey) => {
+  if (apikey) {
+    const client = require('./client').init(apikey)
+    return {
+      account: account(client), 
+      dataset: dataset(client), 
+      document: document(client),
+      flow: flow(client),
+      step: step(client)
+    }
+  } else {
+    return {
+      account: {
+        create: account().create
+      }
+    }
+  }
+}

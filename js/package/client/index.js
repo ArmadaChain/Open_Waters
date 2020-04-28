@@ -1,8 +1,18 @@
 const axios = require('axios')
 const config = require('../config')
-const options = {
-  baseURL: 'http://consensus.us-east-2.elasticbeanstalk.com',
-  timeout: config.client.timeout,
+module.exports.init = (apikey) => {
+  const options = {
+    baseURL: 'http://consensus.us-east-2.elasticbeanstalk.com',
+    timeout: config.client.timeout,
+  }
+
+  if (apikey) {
+    if (!options.headers) {
+      options.headers = {}
+    }
+    options.headers['Authorization'] = apikey
+  }
+
+  const client = axios.create(options)
+  return client
 }
-const client = axios.create(options)
-module.exports = client
