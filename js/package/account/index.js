@@ -11,7 +11,7 @@ module.exports = (cl) => {
       if (name) acc.name = name
       if (company) acc.company = company
   
-      const {data} = await client.post(BASE_ENDPOINT, acc)
+      const {data} = await client.post(`public/${BASE_ENDPOINT}`, acc)
       return data
     } catch (error) {
       throw err.response(error)

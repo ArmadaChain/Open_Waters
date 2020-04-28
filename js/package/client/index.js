@@ -2,7 +2,7 @@ const axios = require('axios')
 const config = require('../config')
 module.exports.init = (apikey) => {
   const options = {
-    baseURL: 'http://consensus.us-east-2.elasticbeanstalk.com',
+    baseURL: 'http://localhost:8080',
     timeout: config.client.timeout,
   }
 
