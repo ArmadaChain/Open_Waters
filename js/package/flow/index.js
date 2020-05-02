@@ -25,8 +25,7 @@ module.exports = (cl) => {
   
   const get = async (flowId = required()) => {
     try {
-      const params = {flowId}
-      const {data} = await client.get(BASE_ENDPOINT, {params})
+      const {data} = await client.get(`${BASE_ENDPOINT}/${flowId}`)
       return data
     } catch (error) {
       throw err.response(error)
@@ -49,8 +48,7 @@ module.exports = (cl) => {
       if (descriptions) flow.descriptions = descriptions
       if (partners) flow.partners = partners
   
-      const params = {flowId} 
-      const {data} = await client.put(BASE_ENDPOINT, {data: flow, params})
+      const {data} = await client.put(`${BASE_ENDPOINT}/${flowId}`, flow)
       return data
     } catch (error) {
       throw err.response(error)
@@ -60,8 +58,7 @@ module.exports = (cl) => {
   const remove = async (flowId = required()) => {
     const removed = get(flowId)
     try {
-      const params = {flowId}
-      await client.delete(BASE_ENDPOINT, {params})
+      await client.delete(`${BASE_ENDPOINT}/${flowId}`)
       return removed
     } catch (error) {
       throw err.response(error)

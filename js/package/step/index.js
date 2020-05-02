@@ -21,8 +21,7 @@ module.exports = (cl) => {
   
   const get = async (stepId = required()) => {
     try {
-      const params = {stepId}
-      const {data} = await client.get(BASE_ENDPOINT, {params})
+      const {data} = await client.get(`${BASE_ENDPOINT}/${stepId}`)
       return data
     } catch (error) {
       throw err.response(error)
@@ -61,8 +60,7 @@ module.exports = (cl) => {
       if (dataSet) step.dataSet = dataSet
       if (data) step.data = data
   
-      const params = {stepId} 
-      const {data} = await client.put(BASE_ENDPOINT, {data: step, params})
+      const {data} = await client.put(`${BASE_ENDPOINT}/${stepId}`, step)
       return data
     } catch (error) {
       throw err.response(error)
@@ -72,8 +70,7 @@ module.exports = (cl) => {
   const remove = async (stepId = required()) => {
     const removed = get(stepId)
     try {
-      const params = {flowId: stepId}
-      await client.delete(BASE_ENDPOINT, {params})
+      await client.delete(`${BASE_ENDPOINT}/${stepId}`)
       return removed
     } catch (error) {
       throw err.response(error)

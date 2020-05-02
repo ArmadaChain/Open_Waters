@@ -11,12 +11,13 @@ const publicExample = async () => {
 
 const authorizedExample = async () => {
   // Init an open water client with an apikey
-  const client = openWater('f4MCesAHYatVx5AQT2wn')
+  const client = openWater('eiBo5pD7PRUvBpnOKa63')
 
   // The retun client exports all functions
-  // For example, get all flows
-  const flows = await client.flow.list()
-  console.log(flows)
+  const flows = await client.flow.create("flow_test_1", "DATA_AUDIT", null, ['CU0000003'])
+  console.log(await client.flow.list())
+  console.log(await client.flow.remove(flows.id))
+  console.log(await client.flow.list())
 }
 
 publicExample()

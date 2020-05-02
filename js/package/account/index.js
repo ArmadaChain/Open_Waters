@@ -20,11 +20,7 @@ module.exports = (cl) => {
   
   const get = async (accountId = required()) => {
     try {
-      const params = {
-        customerId: accountId
-      }
-      
-      const {data} = await client.get(BASE_ENDPOINT, {params})
+      const {data} = await client.get(`${BASE_ENDPOINT}/${accountId}`)
       return data
     } catch (error) {
       throw err.response(error)
@@ -47,9 +43,7 @@ module.exports = (cl) => {
       if (email) acc.email = company
       if (company) acc.company = company
   
-      const params = {customerId: accountId} 
-  
-      const {data} = await client.put(BASE_ENDPOINT, {data: acc, params})
+      const {data} = await client.put(`${BASE_ENDPOINT}/${accountId}`, acc)
       return data
     } catch (error) {
       throw err.response(error)
@@ -59,10 +53,7 @@ module.exports = (cl) => {
   const remove = async (accountId = required()) => {
     const removed = get(accountId)
     try {
-      const params = {
-        customerId: accountId
-      }
-      await client.delete(BASE_ENDPOINT, {params})
+      await client.delete(`${BASE_ENDPOINT}/${accountId}`)
       return removed
     } catch (error) {
       throw err.response(error)

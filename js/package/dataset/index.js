@@ -20,9 +20,7 @@ module.exports = (cl) => {
   
   const get = async (dataSetId = required()) => {
     try {
-      const params = {dataSetId}
-      
-      const {data} = await client.get(BASE_ENDPOINT, {params})
+      const {data} = await client.get(`${BASE_ENDPOINT}/${dataSetId}`)
       return data
     } catch (error) {
       throw err.response(error)
@@ -47,8 +45,7 @@ module.exports = (cl) => {
         dataset.fieldTypes = dataset.fieldKeys.map((k) => keysAndTypes[k])
       }
   
-      const params = {dataSetId} 
-      const {data} = await client.put(BASE_ENDPOINT, {data: dataset, params})
+      const {data} = await client.put(`${BASE_ENDPOINT}/${dataSetId}`, dataset)
       return data
     } catch (error) {
       throw err.response(error)
@@ -58,8 +55,7 @@ module.exports = (cl) => {
   const remove = async (dataSetId = required()) => {
     const removed = get(dataSetId)
     try {
-      const params = {dataSetId}
-      await client.delete(BASE_ENDPOINT, {params})
+      await client.delete(`${BASE_ENDPOINT}/${dataSetId}`)
       return removed
     } catch (error) {
       throw err.response(error)
