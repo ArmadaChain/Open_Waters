@@ -1,6 +1,8 @@
-from .account import Account
 from .client import Client
-
+from .account import Account
+from .dataset import DataSet
+from .flow import Flow
+from .step import Step
 
 class OpenWater:
 
@@ -18,3 +20,6 @@ class OpenWater:
             self.functions.account = account
         else:
             self.functions.account = account
+            self.functions.dataset = DataSet(client)
+            self.functions.flow = Flow(client)
+            self.functions.step = Step(client)
