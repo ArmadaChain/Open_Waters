@@ -3,6 +3,8 @@ from .account import Account
 from .dataset import DataSet
 from .flow import Flow
 from .step import Step
+from .document import Document
+
 
 class OpenWater:
 
@@ -23,3 +25,4 @@ class OpenWater:
             self.functions.dataset = DataSet(client)
             self.functions.flow = Flow(client)
             self.functions.step = Step(client)
+            self.functions.documents = Document(client)
