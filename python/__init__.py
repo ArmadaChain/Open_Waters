@@ -25,4 +25,4 @@ class OpenWater:
             self.functions.dataset = DataSet(client)
             self.functions.flow = Flow(client)
             self.functions.step = Step(client)
-            self.functions.documents = Document(client)
+            self.functions.document = Document(client)
