@@ -1,4 +1,5 @@
 import requests
+import copy
 from ..error import ErrorHandler
 
 
@@ -15,6 +16,16 @@ class Client:
         url = self.__baseURL + url
         try:
             r = requests.post(url, json=data, headers=self.headers)
+            return r.json()
+        except requests.exceptions.RequestException as err:
+            raise ErrorHandler.handle(err)
+
+    def upload(self, url, files):
+        headers = copy.deepcopy(self.headers)
+        del headers['Content-type']
+        url = self.__baseURL + url
+        try:
+            r = requests.post(url, files = files, headers=headers)
             return r.json()
         except requests.exceptions.RequestException as err:
             raise ErrorHandler.handle(err)
