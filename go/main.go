@@ -4,6 +4,7 @@ import (
 	"./account"
 	"./client"
 	"./dataset"
+	"./document"
 	"./flow"
 	"./step"
 )
@@ -13,6 +14,7 @@ type withKey struct {
 	DataSet dataset.DataSet
 	Flow flow.Flow
 	Step step.Step
+	Document document.Document
 }
 
 type noKey struct {
@@ -27,6 +29,7 @@ func WithKey(apiKey string) withKey {
 		DataSet: dataset.New(client),
 		Flow: flow.New(client),
 		Step: step.New(client),
+		Document: document.New(client),
 	}
 	return ow
 }
