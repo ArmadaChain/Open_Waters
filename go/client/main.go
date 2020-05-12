@@ -1,4 +1,4 @@
-package openwater
+package client
 
 import (
 	"bytes"
@@ -11,20 +11,19 @@ import (
 	"time"
 )
 
-type openwater struct {
+type Client struct {
 	url    string
-	apikey string
+	apiKey string
 	client *http.Client
 }
 
-// New open water
-func New(apikey string) openwater {
+func New(apiKey string) Client {
 	url := "http://consensus.us-east-2.elasticbeanstalk.com/"
-	client := &http.Client{
+	cl := &http.Client{
 		Timeout: time.Minute * 5,
 	}
-	ow := openwater{url, apikey, client}
-	return ow
+	clt := Client{url, apiKey, cl}
+	return clt
 }
 
 func auth(req *http.Request, apikey string) {
@@ -43,8 +42,8 @@ func response(resp *http.Response) interface{} {
 	return result
 }
 
-func (ow openwater) Create(url string, data interface{}) interface{} {
-	url = ow.url + url
+func (clt Client) Create(url string, data interface{}) interface{} {
+	url = clt.url + url
 
 	body, err := json.Marshal(data)
 	if err != nil {
@@ -55,10 +54,10 @@ func (ow openwater) Create(url string, data interface{}) interface{} {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	auth(req, ow.apikey)
+	auth(req, clt.apiKey)
 	setJSON(req)
 
-	resp, err := ow.client.Do(req)
+	resp, err := clt.client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -66,8 +65,8 @@ func (ow openwater) Create(url string, data interface{}) interface{} {
 	return response(resp)
 }
 
-func (ow openwater) Update(url string, data interface{}) interface{} {
-	url = ow.url + url
+func (clt Client) Update(url string, data interface{}) interface{} {
+	url = clt.url + url
 
 	body, err := json.Marshal(data)
 	if err != nil {
@@ -78,52 +77,52 @@ func (ow openwater) Update(url string, data interface{}) interface{} {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	auth(req, ow.apikey)
+	auth(req, clt.apiKey)
 	setJSON(req)
 
-	resp, err := ow.client.Do(req)
+	resp, err := clt.client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	return response(resp)
 }
 
-func (ow openwater) Get(url string) interface{} {
-	url = ow.url + url
+func (clt Client) Get(url string) interface{} {
+	url = clt.url + url
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	auth(req, ow.apikey)
+	auth(req, clt.apiKey)
 	setJSON(req)
 
-	resp, err := ow.client.Do(req)
+	resp, err := clt.client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	return response(resp)
 }
 
-func (ow openwater) Delete(url string) interface{} {
-	url = ow.url + url
+func (clt Client) Delete(url string) interface{} {
+	url = clt.url + url
 
 	req, err := http.NewRequest("DELETE", url, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	auth(req, ow.apikey)
+	auth(req, clt.apiKey)
 	setJSON(req)
 
-	resp, err := ow.client.Do(req)
+	resp, err := clt.client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
 	return response(resp)
 }
 
-func (ow openwater) Upload(url string, filename string) interface{} {
-	url = ow.url + url
+func (clt Client) Upload(url string, filename string) interface{} {
+	url = clt.url + url
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -139,7 +138,7 @@ func (ow openwater) Upload(url string, filename string) interface{} {
 		log.Fatalln(err)
 	}
 
-	_, err := io.Copy(fileWriter, file)
+	_, err = io.Copy(fileWriter, file)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -149,7 +148,7 @@ func (ow openwater) Upload(url string, filename string) interface{} {
 		log.Fatalln(err)
 	}
 
-	_, err := fieldWriter.Write([]byte("Value"))
+	_, err = fieldWriter.Write([]byte("Value"))
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -160,10 +159,10 @@ func (ow openwater) Upload(url string, filename string) interface{} {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	auth(req, ow.apikey)
+	auth(req, clt.apiKey)
 	req.Header.Set("Content-Type", multiPartWriter.FormDataContentType())
 
-	resp, err := ow.client.Do(req)
+	resp, err := clt.client.Do(req)
 	if err != nil {
 		log.Fatalln(err)
 	}
