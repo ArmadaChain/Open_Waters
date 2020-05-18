@@ -15,15 +15,15 @@ class Account:
         r = self.__client.post('public/'+self.__baseEndpoint, data)
         return r
 
-    def get(self, accountId):
-        r = self.__client.get(self.__baseEndpoint + "/" + accountId)
+    def get(self, account_id):
+        r = self.__client.get(self.__baseEndpoint + "/" + account_id)
         return r
 
-    def getAll(self):
+    def list(self):
         r = self.__client.get(self.__baseEndpoint)
         return r
 
-    def update(self, accountId, name=None, email=None, company=None):
+    def update(self, account_id, name=None, email=None, company=None):
         data = {}
         if name is not None:
             data['name'] = name
@@ -31,9 +31,9 @@ class Account:
             data['email'] = email
         if company is not None:
             data['company'] = company
-        r = self.__client.put(self.__baseEndpoint + "/" + accountId, data)
+        r = self.__client.put(self.__baseEndpoint + "/" + account_id, data)
         return r
 
-    def delete(self, accountId):
-        r = self.__client.delete(self.__baseEndpoint + "/" + accountId)
+    def delete(self, account_id):
+        r = self.__client.delete(self.__baseEndpoint + "/" + account_id)
         return r

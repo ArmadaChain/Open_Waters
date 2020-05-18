@@ -10,19 +10,19 @@ class OpenWater:
 
     functions = {}
 
-    def __init__(self, apikey=None):
-        client = Client(apikey)
-        account = Account(client)
+    def __init__(self, api_key=None):
+        http_client = Client(api_key)
+        ow_account = Account(http_client)
 
-        if apikey is None:
-            delattr(account, 'get')
-            delattr(account, 'getAll')
-            delattr(account, 'update')
-            delattr(account, 'delete')
-            self.functions.account = account
+        if api_key is None:
+            delattr(ow_account, 'get')
+            delattr(ow_account, 'getAll')
+            delattr(ow_account, 'update')
+            delattr(ow_account, 'delete')
+            self.functions.account = ow_account
         else:
-            self.functions.account = account
-            self.functions.dataset = DataSet(client)
-            self.functions.flow = Flow(client)
-            self.functions.step = Step(client)
-            self.functions.document = Document(client)
+            self.functions.account = ow_account
+            self.functions.data_set = DataSet(http_client)
+            self.functions.flow = Flow(http_client)
+            self.functions.step = Step(http_client)
+            self.functions.document = Document(http_client)

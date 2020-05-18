@@ -1,4 +1,4 @@
-class ErrorHandler:
+class Errors:
 
     @staticmethod
     def handle(err):
