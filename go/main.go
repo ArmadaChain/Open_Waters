@@ -1,49 +1,44 @@
-package openwater
+package _go
 
 import (
-	"bytes"
-	"encoding/json"
-	"io/ioutil"
-	"log"
-	"net/http"
+	"./account"
+	"./client"
+	"./dataset"
+	"./document"
+	"./flow"
+	"./step"
 )
 
-type openwater struct {
-	url string
+type withKey struct {
+	Account account.Account
+	DataSet dataset.DataSet
+	Flow flow.Flow
+	Step step.Step
+	Document document.Document
 }
 
-func New(apikey string) openwater {
-	url := "https://proxy-server.com:443/armadachain/openwater?apikey=" + apikey
-	ow := openwater{url}
+type noKey struct {
+	Account account.PublicAccount
+}
+
+func WithKey(apiKey string) withKey {
+	var ow withKey
+	client := client.New(apiKey)
+	ow = withKey{
+		Account: account.New(client),
+		DataSet: dataset.New(client),
+		Flow: flow.New(client),
+		Step: step.New(client),
+		Document: document.New(client),
+	}
 	return ow
 }
 
-func (ow openwater) Create(data interface{}) int {
-	body, err := json.Marshal(data)
-	if err != nil {
-		log.Fatalln(err)
+func NoKey() noKey {
+	var ow noKey
+	client := client.New("")
+	ow = noKey{
+		Account: account.NewPublic(client),
 	}
-
-	resp, err := http.Post(ow.url, "application/json", bytes.NewBuffer(body))
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer resp.Body.Close()
-
-	return resp.StatusCode
-}
-
-func (ow openwater) Get(queries map[string]interface{}) interface{} {
-
-	resp, err := http.Get(ow.url)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer resp.Body.Close()
-
-	body, err := ioutil.ReadAll(resp.Body)
-
-	return body
+	return ow
 }
