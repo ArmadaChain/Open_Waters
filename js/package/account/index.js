@@ -27,15 +27,6 @@ module.exports = (cl) => {
     }
   }
   
-  const list = async () => {
-    try {
-      const {data} = await client.get(BASE_ENDPOINT)
-      return data
-    } catch (error) {
-      throw err.response(error)
-    }
-  }
-  
   const update = async (accountId = required(), name, email, company) => {
     try {
       const acc = {}
@@ -59,5 +50,5 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
-  return {create, get, list, update, remove}
+  return {create, get, update, remove}
 }

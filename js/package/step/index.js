@@ -28,17 +28,6 @@ module.exports = (cl) => {
     }
   }
   
-  const list = async (validator) => {
-    try {
-      const query = {}
-      if (validator) query.validator = validator
-      const {data} = await client.get(BASE_ENDPOINT, {query})
-      return data
-    } catch (error) {
-      throw err.response(error)
-    }
-  }
-  
   const listByFlow = async (flowId = required(), validator) => {
     try {
       const query = {}
@@ -66,6 +55,15 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
+
+  const validate = async (stepId = required(), isCompleted) => {
+    try {
+      const result = await client.put(`${BASE_ENDPOINT}/${stepId}/validate/${isCompleted}`)
+      return result.data
+    } catch (error) {
+      throw err.response(error)
+    }
+  }
   
   const remove = async (stepId = required()) => {
     const removed = get(stepId)
@@ -76,5 +74,5 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
-  return {create, get, list, listByFlow, update, remove}
+  return {create, get, listByFlow, update, validate, remove}
 }
