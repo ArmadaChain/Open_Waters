@@ -19,10 +19,6 @@ class Account:
         r = self.__client.get(self.__baseEndpoint + "/" + account_id)
         return r
 
-    def list(self):
-        r = self.__client.get(self.__baseEndpoint)
-        return r
-
     def update(self, account_id, name=None, email=None, company=None):
         data = {}
         if name is not None:

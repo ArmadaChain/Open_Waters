@@ -21,18 +21,12 @@ class Step:
         r = self.__client.get(self.__baseEndpoint + "/" + step_id)
         return r
 
-    def list(self, validator=None):
-        queries = ''
-        if validator is not None:
-            queries = '&validator='+validator
-        r = self.__client.get(self.__baseEndpoint + queries)
-        return r
-
     def list_by_flow(self, flow_id, validator=None):
         queries = ''
         if validator is not None:
             queries = '&validator='+validator
-        r = self.__client.get('flows/' + flow_id + "/" + self.__baseEndpoint + queries)
+        r = self.__client.get('flows/' + flow_id + "/" +
+                              self.__baseEndpoint + queries)
         return r
 
     def update(self, step_id, step_num=None, validator=None, flow=None,
@@ -51,6 +45,11 @@ class Step:
         if data is not None:
             step['data'] = data
         r = self.__client.put(self.__baseEndpoint + "/" + step_id, step)
+        return r
+
+    def validate(self, step_id, is_completed: bool):
+        r = self.__client.put(self.__baseEndpoint + "/" +
+                              step_id + "/validate/" + is_completed)
         return r
 
     def delete(self, step_id):
