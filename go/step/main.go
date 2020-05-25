@@ -56,20 +56,16 @@ func (m Step) Update(stepId string, stepNum int, validator string, flow string, 
 	return m.cl.Update(m.baseURL+"/"+stepId, data)
 }
 
+func (m Step) Validate(stepId string, isCompleted bool) interface{} {
+	return m.cl.Update(m.baseURL+"/"+stepId+"/validate/"+isCompleted)
+}
+
 func (m Step) Get(stepId string) interface{} {
 	return m.cl.Get(m.baseURL+"/"+stepId)
 }
 
 func (m Step) Delete(stepId string) interface{} {
 	return m.cl.Delete(m.baseURL+"/"+stepId)
-}
-
-func (m Step) List(validator string) interface{} {
-	var queries string
-	if validator != "" {
-		queries = "&validator="+validator
-	}
-	return m.cl.Get(m.baseURL+queries)
 }
 
 func (m Step) ListByFlow(flowId string, validator string) interface{} {

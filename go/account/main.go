@@ -75,6 +75,3 @@ func (m Account) Delete(accountId string) interface{} {
 	return m.cl.Delete(m.baseURL+"/"+accountId)
 }
 
-func (m Account) List() interface{} {
-	return m.cl.Get(m.baseURL)
-}
