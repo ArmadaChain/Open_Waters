@@ -16,7 +16,7 @@ module.exports = (cl) => {
         flow.partners = partners
       }
   
-      const {data} = await client.post(BASE_ENDPOINT, flow)
+      const {data} = await client.post(`${BASE_ENDPOINT}/`, flow)
       return data
     } catch (error) {
       throw err.response(error)
@@ -34,7 +34,7 @@ module.exports = (cl) => {
   
   const list = async () => {
     try {
-      const {data} = await client.get(BASE_ENDPOINT)
+      const {data} = await client.get(`${BASE_ENDPOINT}/`)
       return data
     } catch (error) {
       throw err.response(error)

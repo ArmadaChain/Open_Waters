@@ -7,11 +7,11 @@ module.exports = (cl) => {
   const client = cl || require('../client').init()
   const push = async (flowId = require(), data = required(), memo, encrypt = false) => {
     try {
-      const body = {flowId, data}
+      const body = {flowId, data: JSON.stringify(data)}
       if (memo) body.memo = memo
   
-      const {data} = await client.post(`${BASE_ENDPOINT}?encrypt=${encrypt}`, body)
-      return data
+      const res = await client.post(`${BASE_ENDPOINT}/?encrypt=${encrypt}`, body)
+      return res.data
     } catch (error) {
       throw err.response(error)
     }
