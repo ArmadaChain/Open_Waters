@@ -1,13 +1,13 @@
 const OW = require('../../package')
 
 const test = async () => {
-  const apiCl = OW('WmKM7K5euWyqejiADCU0')
+  const apiCl = OW('VM4oeQcpt0SJcin1fi5v')
 
   // Create a flow
-  // console.log(await apiCl.flow.create('flow1', 'TRACK_TRACE'))
+  // console.log(await apiCl.flow.create('flow_kent', 'TRACK_TRACE'))
 
   // Get a flow
-  console.log(await apiCl.flow.get("FL0000001"))
+  console.log(await apiCl.flow.get("FL0000002"))
 
   // Get all flow
   console.log(await apiCl.flow.list())

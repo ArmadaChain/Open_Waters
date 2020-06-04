@@ -3,7 +3,7 @@ const OW = require('../../package')
 const testCreate = async () => {
   // TODO: Don't run many times
   const nonApi = OW()
-  const newAcc = await nonApi.account.create('oanh_test', 'oanh@a.a', 'Oanh', 'Armada')
+  const newAcc = await nonApi.account.create('kent', 'kent@armadachain.io', 'Kent Makishima', 'Armada Chain')
   console.log('New account', newAcc)
 }
 
