@@ -11,7 +11,7 @@ module.exports = (cl) => {
       const fieldTypes = fieldKeys.map((k) => keysAndTypes[k])
       const dataset = {fieldKeys, fieldTypes, name}
   
-      const {data} = await client.post(BASE_ENDPOINT, dataset)
+      const {data} = await client.post(`${BASE_ENDPOINT}/`, dataset)
       return data
     } catch (error) {
       throw err.response(error)
@@ -29,7 +29,7 @@ module.exports = (cl) => {
   
   const list = async () => {
     try {
-      const {data} = await client.get(BASE_ENDPOINT)
+      const {data} = await client.get(`${BASE_ENDPOINT}/`)
       return data
     } catch (error) {
       throw err.response(error)

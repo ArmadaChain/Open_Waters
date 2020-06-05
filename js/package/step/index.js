@@ -12,7 +12,7 @@ module.exports = (cl) => {
       if (dataSet) step.dataSet = dataSet
       if (data) step.data = data
   
-      const res = await client.post(BASE_ENDPOINT, step)
+      const res = await client.post(`${BASE_ENDPOINT}/`, step)
       return res.data
     } catch (error) {
       throw err.response(error)

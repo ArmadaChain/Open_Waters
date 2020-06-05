@@ -1,5 +1,4 @@
 const err = require('../error')
-const {required} = require('../validation')
 const BASE_ENDPOINT = 'metric'
 
 
