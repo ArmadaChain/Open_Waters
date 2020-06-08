@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "mocha"
+    "start": "mocha --exit --reporter mochawesome --reporter-options reportDir=report,reportFilename=ow"
   },
   "author": "",
   "license": "ISC",
