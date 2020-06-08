@@ -1,7 +1,8 @@
 {
   "reporter": "mochawesome",
-  "reporter-options": {
+  "reporterOptions": {
     "reportDir": "./report,timestamp"
   },
-  "spec": ["test/tcs/*.js"]
+  "spec": ["hook/*.js", "tcs/*.js"],
+  "timeout": "10000"
 }

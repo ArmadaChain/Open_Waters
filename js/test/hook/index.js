@@ -8,13 +8,16 @@ const retryConnect = (tries) => {
   }
   return db.connect()
     .catch(() => {
-      return new Promise((rs) => setTimeout(() => rs(), 1000)).then(() => retryConnect(--tries))
+      return new Promise((rs) => setTimeout(() => rs(), 1000))
+        .then(() => retryConnect(--tries))
     })
 }
 
-mocha.before((done) => {
-  let noTries = 5
-  retryConnect(noTries)
-    .then(done)
-    .catch((e) => logger.error(`retryConnect error`, e))
+mocha.before(async () => {
+  try {
+    let noTries = 5
+    await retryConnect(noTries)
+  } catch (err) {
+    logger.error('Connect db error')
+  }
 })

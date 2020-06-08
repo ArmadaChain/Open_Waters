@@ -3,10 +3,10 @@ module.exports = {
     endpoint: process.env.SERVER_ENDPOINT || 'http://localhost:8080/api/v1'
   },
   db: {
-    uri: process.env.DB_URI || '',
+    host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
-    pass: process.env.DB_PASS || '1111',
-    dbTesting: process.env.DB_NAME || 'automation-testing',
+    password: process.env.DB_PASS || '123456',
+    database: process.env.DB_NAME || 'armadaConsensus',
   },
   log: {
     dir: "logs",

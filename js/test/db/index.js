@@ -1,26 +1,32 @@
-const config = require('./test/config')
-const Sequelize = require('sequelize')
-const logger = require('../logger')
+const config = require('../config')
+const mysql = require('mysql')
 
-const init = (key, tb, data) => {
-  let sequelize = new Sequelize(config.db.uri,{logging: false})
-  return sequelize.authenticate()
-    .then(() => Promise.all(data.map((e) => sequelize.query(`INSERT INTO ${tb} (${Object.keys(e).join()}) VALUES (${Object.values(e).join()})`))))
-    .catch(err => logger.error(`init error in testcase: ${key}`, err))
-    .finally(() => sequelize.close())
-}
+const connection = mysql.createConnection(config.db)
 
-const empty = (key, tb) => {
-  let sequelize = new Sequelize(config.db.uri)
-  return sequelize.authenticate()
-    .then(() => sequelize.query(`DELETE FROM ${tb}`))
-    .catch(err => logger.error(`empty error in testcase: ${key}`, err))
-    .finally(() => sequelize.close())
-}
+const insertOne = (tb, row) => new Promise((res, rej) => {
+  connection.query(
+    `INSERT INTO ${tb} (${Object.keys(row).join()}) VALUES (${Object.values(row).join()})`,
+    function (error, results) {
+      if (error) return rej(error)
+      res(results)
+    }
+  )
+})
 
-const connect = () => {
-  let sequelize = new Sequelize(config.db.uri)
-  return sequelize.authenticate()
-}
+const init = (tb, data) => Promise.all(data.map((e) => insertOne(tb, e)))
+
+const empty = (tb) => new Promise((res, rej) => {
+  connection.query(`DELETE FROM ${tb}`, function (error, results) {
+    if (error) return rej(error);
+    res(results)
+  })
+})
+
+const connect = () => new Promise((res, rej) => {
+  connection.connect((err) => {
+    if (err) return rej(err)
+    res(connection)
+  })
+})
 
 module.exports = {init, empty, connect }

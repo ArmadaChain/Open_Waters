@@ -1,6 +1,6 @@
 const path = require('path')
 const log4js = require('log4js')
-const config = require('./test/config')
+const config = require('../config')
 
 const filename = path.join(config.log.dir, config.log.filename)
 
