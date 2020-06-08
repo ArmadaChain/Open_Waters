@@ -4,7 +4,7 @@
   "description": "This module provides an easiest way to customer to inject itself into their existing project to send/retrieve encrypted data to HH",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --reporter mochawesome --reporter-options reportDir=test/report,reportFilename=ow"
+    "test": "cd test && npm start"
   },
   "keywords": [
     "open-water",
@@ -15,9 +15,5 @@
   "license": "ISC",
   "dependencies": {
     "axios": "0.19.0"
-  },
-  "devDependencies": {
-    "mocha": "^7.2.0",
-    "mochawesome": "^6.1.1"
   }
 }

@@ -1,5 +1,5 @@
 var assert = require('assert')
-var pkg = require('../index')
+var pkg = require('../../index')
 describe('Open Water', function() {
 
   describe('# without API key', function() {

@@ -1,6 +1,6 @@
 var assert = require('assert')
-var conf = require('./conf')
-var ow = require('../index')(conf.apikey)
+var conf = require('../conf')
+var ow = require('../../index')(conf.apikey)
 
 describe('Flow', function() {
   describe('# create a flow', function() {

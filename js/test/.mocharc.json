@@ -1,0 +1,7 @@
+{
+  "reporter": "mochawesome",
+  "reporter-options": {
+    "reportDir": "./report,timestamp"
+  },
+  "spec": ["test/tcs/*.js"]
+}
