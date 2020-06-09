@@ -1,4 +1,4 @@
 {
-  "spec": ["hook/*.js", "tcs/*.js"],
+  "spec": ["tcs/*.js"],
   "timeout": "10000"
 }
