@@ -20,9 +20,9 @@ describe('account', function() {
   })
 
   describe('update', function() {
-    it ('should return account info', async function() {
+    it ('should return updated account', async function() {
       const acc = await util.ow.account.get(conf.acc.normal.id)
-      const oldName = acc.oldName
+      const oldName = acc.name
       
       const updated = await util.ow.account.update(conf.acc.normal.id, 'Test')
       assert.equal(updated.name, 'Test')

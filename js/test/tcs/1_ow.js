@@ -1,6 +1,6 @@
 const util = require('../util')
 const assert = require('assert')
-describe('Open Water', function() {
+describe('open water', function() {
 
   describe('without API Key', function() {
     it ('should return only one create-account function', async function() {

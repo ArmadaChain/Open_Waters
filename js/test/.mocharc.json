@@ -1,4 +1,4 @@
 {
-  "spec": ["tcs/*.js"],
+  "spec": ["tcs/3_flow.js"],
   "timeout": "10000"
 }
