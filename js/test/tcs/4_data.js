@@ -17,7 +17,7 @@ describe('data', function() {
 
   describe('push', function() {
     it ('should return flow info', async function() {
-      const fl = await ow.flow.get(flow.id)
+      const data = await ow.data.push(flow.id, {"autotest": "test data"})
       assert.equal(flow.id, fl.id)
     })
   })
