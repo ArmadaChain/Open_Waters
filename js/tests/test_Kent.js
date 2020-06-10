@@ -16,7 +16,9 @@ const createAccount = async () => {
   console.log("Creating Hedera Hashgraph account!")
   let client = openWater()
   // The return client exports only one function "account.create"
-  const account = await client.account.create('anon', 'na', 'anon', 'simpleAPI')
+  const username = `someone${Math.random()}`
+  const email = `some@email${Math.random()}`
+  const account = await client.account.create(username, email, 'name', 'a company')
   console.log("Created!")
   // Record api key for Open Waters
   privateKey = account.privateKey
