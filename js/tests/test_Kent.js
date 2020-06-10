@@ -7,30 +7,40 @@
 // To send messages to 
 
 // ------- Script Begin ----------
-const openWater = require('../package/index') // requirements
+const openWater = require('../package') // requirements
 
-var privateKey
-var memo
-
+let privateKey = "CI8ZLhFRKGiSBYIC6FW0"
 
 const createAccount = async () => {
   // Init an open water client without api key
   console.log("Creating Hedera Hashgraph account!")
-  const client = openWater()
+  let client = openWater()
   // The return client exports only one function "account.create"
   const account = await client.account.create('anon', 'na', 'anon', 'simpleAPI')
   console.log("Created!")
   // Record api key for Open Waters
-  privateKey = account.privateKey 
+  privateKey = account.privateKey
+
+  // Re-init an open water client with api key created from account
+  client = openWater(privateKey)
 
   const data = await client.account.myAccount()
-  const HH_ID = data.hederaAccountId
+  HH_ID = data.hederaAccountId
 
-  console.log("This is your Hedera Hashgraph account ID" + HH_ID)
+  console.log("This is your Hedera Hashgraph account ID: " + HH_ID)
   console.log("Use this to check your message on Hedera Hashgraph")
   console.log("This is your privateKey: " + privateKey)
   console.log("You can insert this in script to send messages without creating new topics")
 }
+
+const readline = require('readline')
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+const ask = (question) => new Promise((res, rej) => {
+  rl.question(question, (input) => res(input))
+})
 
 const topicMessageSend= async () => {
   // Init an open water client with api key created from account. If running 
@@ -38,28 +48,24 @@ const topicMessageSend= async () => {
 
   console.log("Creating HCS Topic!")
   // Create Hedera Consensus Topic, known as Flows on Armada Platform
-  const flow = await client.flow.create("anonTopic", "TRACK_TRACE")
-
-  const readline = require('readline')
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-  })
+  const flow = await client.flow.create(`anonTopic-${Math.random()}`, "TRACK_TRACE")
 
   // Prompt for message to be sent to topic
-  rl.question('What is the message you want to send?', (memo) => {
-    // Send message to topic
-    pushData = await data.push(flow.id, plainData, memo, false)
-    rl.close()
-  })
+  const memo = await ask('What is the message you want to send? ')
+  rl.close()
+  console.log('Got your message. Sending to HH...')
+  await client.data.push(flow.id, memo, memo, false)
   
-  // Get account ID 
-  const data = await client.account.myAccount()
-  const HH_ID = data.hederaAccountId
-  console.log("Find your message from your HH account: " + HH_ID)
+  // Get message from HH account 
+  console.log("Find your message from your HH account")
+  const data = await client.data.get(flow.id)
+  console.log("Here is your message", data)
 }
 
+const run = async () => {
+  //Run Scripts
+  await createAccount()
+  await topicMessageSend()
+}
 
-//Run Scripts
-createAccount() // comment out to just send messages from same account
-topicMessageSend()
+run().then(() => console.log('Finish!'))
