@@ -14,4 +14,4 @@ phases:
       - echo Build completed on `date`
 artifacts:
   files:
-    - 'js/test/report/*'
+    - 'js/test/report/**/*'
