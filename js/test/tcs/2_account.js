@@ -11,6 +11,16 @@ describe('account', function () {
     })
   })*/
 
+  describe('my account', function () {
+
+    it('should return associated account info', async function () {
+      const acc = await util.ow.account.myAccount()
+      console.log(acc)
+      assert.equal(acc.id, conf.acc.normal.id)
+      assert.equal(acc.privateKey, conf.acc.normal.key)
+    })
+  })
+
   describe('get', function () {
 
     it('should return account info', async function () {

@@ -26,6 +26,15 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
+
+  const myAccount = async () => {
+    try {
+      const {data} = await client.get(`${BASE_ENDPOINT}/my/account`)
+      return data
+    } catch (error) {
+      throw err.response(error)
+    }
+  }
   
   const update = async (accountId = required(), name, email, company) => {
     try {
@@ -50,5 +59,5 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
-  return {create, get, update, remove}
+  return {create, get, update, remove, myAccount}
 }
