@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "cd ../package && npm install",
-    "start": "mocha --reporter mochawesome --reporter-options reportDir=report,reportFilename=ow"
+    "start": "mocha --reporter mochawesome --reporter-options reportDir=report,reportFilename=ow || true"
   },
   "author": "",
   "license": "ISC",
