@@ -1,5 +1,5 @@
 const err = require('../error')
-const {required} = require('../validation')
+const { required } = require('../validation')
 const BASE_ENDPOINT = 'customers'
 
 module.exports = (cl) => {
@@ -7,20 +7,20 @@ module.exports = (cl) => {
 
   const create = async (username = required(), email = required(), name, company) => {
     try {
-      const acc = {username, email}
+      const acc = { username, email }
       if (name) acc.name = name
       if (company) acc.company = company
-  
-      const {data} = await client.post(`${BASE_ENDPOINT}/`, acc)
+
+      const { data } = await client.post(`${BASE_ENDPOINT}/`, acc)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const get = async (accountId = required()) => {
     try {
-      const {data} = await client.get(`${BASE_ENDPOINT}/${accountId}`)
+      const { data } = await client.get(`${BASE_ENDPOINT}/${accountId}`)
       return data
     } catch (error) {
       throw err.response(error)
@@ -29,27 +29,27 @@ module.exports = (cl) => {
 
   const myAccount = async () => {
     try {
-      const {data} = await client.get(`${BASE_ENDPOINT}/my/account`)
+      const { data } = await client.get(`${BASE_ENDPOINT}/my/account`)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const update = async (accountId = required(), name, email, company) => {
     try {
       const acc = {}
       if (name) acc.name = name
       if (email) acc.email = company
       if (company) acc.company = company
-  
-      const {data} = await client.put(`${BASE_ENDPOINT}/${accountId}`, acc)
+
+      const { data } = await client.put(`${BASE_ENDPOINT}/${accountId}`, acc)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const remove = async (accountId = required()) => {
     const removed = get(accountId)
     try {
@@ -59,5 +59,5 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
-  return {create, get, update, remove, myAccount}
+  return { create, get, update, remove, myAccount }
 }

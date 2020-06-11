@@ -1,5 +1,5 @@
 const err = require('../error')
-const {required} = require('../validation')
+const { required } = require('../validation')
 const BASE_ENDPOINT = 'datasets'
 
 
@@ -9,33 +9,33 @@ module.exports = (cl) => {
     try {
       const fieldKeys = Object.keys(keysAndTypes)
       const fieldTypes = fieldKeys.map((k) => keysAndTypes[k])
-      const dataset = {fieldKeys, fieldTypes, name}
-  
-      const {data} = await client.post(`${BASE_ENDPOINT}/`, dataset)
+      const dataset = { fieldKeys, fieldTypes, name }
+
+      const { data } = await client.post(`${BASE_ENDPOINT}/`, dataset)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const get = async (dataSetId = required()) => {
     try {
-      const {data} = await client.get(`${BASE_ENDPOINT}/${dataSetId}`)
+      const { data } = await client.get(`${BASE_ENDPOINT}/${dataSetId}`)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const list = async () => {
     try {
-      const {data} = await client.get(`${BASE_ENDPOINT}/`)
+      const { data } = await client.get(`${BASE_ENDPOINT}/`)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const update = async (dataSetId = required(), keysAndTypes, name) => {
     try {
       const dataset = {}
@@ -44,14 +44,14 @@ module.exports = (cl) => {
         dataset.fieldKeys = Object.keys(keysAndTypes)
         dataset.fieldTypes = dataset.fieldKeys.map((k) => keysAndTypes[k])
       }
-  
-      const {data} = await client.put(`${BASE_ENDPOINT}/${dataSetId}`, dataset)
+
+      const { data } = await client.put(`${BASE_ENDPOINT}/${dataSetId}`, dataset)
       return data
     } catch (error) {
       throw err.response(error)
     }
   }
-  
+
   const remove = async (dataSetId = required()) => {
     const removed = get(dataSetId)
     try {
@@ -61,5 +61,5 @@ module.exports = (cl) => {
       throw err.response(error)
     }
   }
-  return {create, get, list, update, remove}
+  return { create, get, list, update, remove }
 }

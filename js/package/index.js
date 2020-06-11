@@ -10,8 +10,8 @@ module.exports = (apikey) => {
   if (apikey) {
     const client = require('./client').init(apikey)
     return {
-      account: account(client), 
-      dataset: dataset(client), 
+      account: account(client),
+      dataset: dataset(client),
       document: document(client),
       flow: flow(client),
       step: step(client),

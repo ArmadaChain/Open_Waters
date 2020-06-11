@@ -5,4 +5,4 @@ const response = (err) => {
   return err instanceof Error ? err : new Error(String(err))
 }
 
-module.exports = {response}
+module.exports = { response }
