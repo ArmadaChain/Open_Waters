@@ -4,6 +4,13 @@ const BASE_ENDPOINT = 'metric'
 module.exports = (cl) => {
   const client = cl || require('../client').init()
 
+  /**
+   * Count number of calls
+   * 
+   * @async
+   * @param {string} [customerId] 
+   * @return {Promise<number>} Number of calls
+   */
   const countCalls = async (customerId) => {
     try {
       const query = customerId ? `?customerId=${customerId}` : ''
@@ -14,6 +21,12 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Count number of flows
+   * 
+   * @async
+   * @return {Promise<number>} Number of flows
+   */
   const countFlows = async () => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/amount/flows`)
@@ -23,6 +36,12 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Count number of transactions
+   * 
+   * @async
+   * @return {Promise<number>} Number of transactions 
+   */
   const countTransactions = async () => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/amount/transactions`)
@@ -32,6 +51,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get the last called function
+   * 
+   * @async
+   * @param {string} [customerId] 
+   * @return {Promise<object>} Last function 
+   */
   const lastCall = async (customerId) => {
     try {
       const query = customerId ? `?customerId=${customerId}` : ''

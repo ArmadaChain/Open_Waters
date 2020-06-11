@@ -5,6 +5,14 @@ const BASE_ENDPOINT = 'documents'
 
 module.exports = (cl) => {
   const client = cl || require('../client').init()
+
+  /**
+   * Upload document
+   * 
+   * @async
+   * @param {string} filePath 
+   * @return {Promise<object>} Uploaded document
+   */
   const upload = async (filePath = required()) => {
     try {
       const formData = new FormData()

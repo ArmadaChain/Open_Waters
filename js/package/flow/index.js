@@ -5,6 +5,16 @@ const BASE_ENDPOINT = 'flows'
 module.exports = (cl) => {
   const client = cl || require('../client').init()
 
+  /**
+   * Create flow
+   * 
+   * @async
+   * @param {string} name 
+   * @param {string} flowType - Just support 2 types: DATA_AUDIT & TRACK_TRACE
+   * @param {string} [descriptions] 
+   * @param {string[]} [partners] - List of IDs of partners
+   * @return {Promise<object>} Created flow
+   */
   const create = async (name = required(), flowType = required(), descriptions, partners) => {
     try {
       const flow = { name, flowType }
@@ -22,6 +32,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get flow
+   * 
+   * @async
+   * @param {string} flowId 
+   * @return {Promise<object>} Flow
+   */
   const get = async (flowId = required()) => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/${flowId}`)
@@ -31,6 +48,12 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * List all flows
+   * 
+   * @async
+   * @return {Promise<object[]>} List of flows
+   */
   const list = async () => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/`)
@@ -40,6 +63,16 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Update flow
+   * 
+   * @param {string} flowId 
+   * @param {string} [name] 
+   * @param {string} [descriptions] 
+   * @param {string[]} partners - List of IDs of partners
+   * 
+   * @return {Promise<object>} Updated flow
+   */
   const update = async (flowId = required(), name, descriptions, partners) => {
     try {
       const flow = {}
@@ -54,6 +87,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Remove flow
+   * 
+   * @async
+   * @param {string} flowId 
+   * @return {Promise<object>} Removed flow
+   */
   const remove = async (flowId = required()) => {
     const removed = get(flowId)
     try {

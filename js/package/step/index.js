@@ -4,6 +4,19 @@ const BASE_ENDPOINT = 'steps'
 
 module.exports = (cl) => {
   const client = cl || require('../client').init()
+
+  /**
+   * Create step
+   * 
+   * @async
+   * @param {number} stepNum - Order number of step
+   * @param {string} validator - ID of validator
+   * @param {string} flow - ID of associated flow
+   * @param {string[]} [documents] - List of document's IDs
+   * @param {string} [dataSet] - ID of dataset which step belongs to
+   * @param {*} [data] - Data of step, followed by dataset's rule
+   * @return {Promise<object>} Created step
+   */
   const create = async (stepNum = required(), validator = required(), flow = required(), documents, dataSet, data) => {
     try {
       const step = { stepNum, validator, flow }
@@ -18,6 +31,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get step
+   * 
+   * @async
+   * @param {string} stepId 
+   * @return {Promise<object>} Step
+   */
   const get = async (stepId = required()) => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/${stepId}`)
@@ -27,6 +47,15 @@ module.exports = (cl) => {
     }
   }
 
+
+  /**
+   * List all steps of flow
+   * 
+   * @async
+   * @param {string} flowId 
+   * @param {string} [validator] 
+   * @return {Promise<object[]>} List of steps
+   */
   const listByFlow = async (flowId = required(), validator) => {
     try {
       const query = {}
@@ -38,6 +67,19 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Update step
+   * 
+   * @async
+   * @param {string} stepId 
+   * @param {number} [stepNum] - Order number of step
+   * @param {string} [validator] - ID of validator
+   * @param {string} [flow] - ID of associated flow
+   * @param {string[]} [documents] - List of document's IDs
+   * @param {string} [dataSet] - ID of dataset which step belongs to
+   * @param {*} [data] - Data of step, followed by dataset's rule
+   * @return {Promise<object>} Updated step
+   */
   const update = async (stepId = required(), stepNum, validator, flow, documents, dataSet, data) => {
     try {
       const step = {}
@@ -55,7 +97,15 @@ module.exports = (cl) => {
     }
   }
 
-  const validate = async (stepId = required(), isCompleted) => {
+  /**
+   * Mark a step is validated or not
+   * 
+   * @async
+   * @param {string} stepId 
+   * @param {boolean} [isCompleted=true] 
+   * @return {Promise<object>} Updated step
+   */
+  const validate = async (stepId = required(), isCompleted = true) => {
     try {
       const result = await client.put(`${BASE_ENDPOINT}/${stepId}/validate/${isCompleted}`)
       return result.data
@@ -64,6 +114,14 @@ module.exports = (cl) => {
     }
   }
 
+
+  /**
+   * Remove step
+   * 
+   * @async
+   * @param {string} stepId 
+   * @return {Promise<object>} Removed step
+   */
   const remove = async (stepId = required()) => {
     const removed = get(stepId)
     try {

@@ -2,9 +2,17 @@ const err = require('../error')
 const { required } = require('../validation')
 const BASE_ENDPOINT = 'datasets'
 
-
 module.exports = (cl) => {
   const client = cl || require('../client').init()
+
+  /**
+   * Create data set
+   * 
+   * @async
+   * @param {object} keysAndTypes - For example: {"amount": "number", item: "string"}
+   * @param {string} name 
+   * @return {Promise<object>} Created dataset
+   */
   const create = async (keysAndTypes = required(), name = required()) => {
     try {
       const fieldKeys = Object.keys(keysAndTypes)
@@ -18,6 +26,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get dataset by ID
+   * 
+   * @async
+   * @param {string} dataSetId 
+   * @return {Promise<object>} Dataset
+   */
   const get = async (dataSetId = required()) => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/${dataSetId}`)
@@ -27,6 +42,12 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * List all datasets
+   * 
+   * @async
+   * @return {Promise<object[]>} List of dataset
+   */
   const list = async () => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/`)
@@ -36,6 +57,15 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Update dataset
+   * 
+   * @async
+   * @param {string} dataSetId 
+   * @param {object} [keysAndTypes] - For example: {"amount": "number", item: "string"}
+   * @param {object} [name] 
+   * @return {Promise<object>} Updated dataset
+   */
   const update = async (dataSetId = required(), keysAndTypes, name) => {
     try {
       const dataset = {}
@@ -52,6 +82,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Remove dataset
+   * 
+   * @async
+   * @param {string} dataSetId 
+   * @return {Promise<object>} Removed dataset
+   */
   const remove = async (dataSetId = required()) => {
     const removed = get(dataSetId)
     try {

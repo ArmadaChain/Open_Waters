@@ -5,6 +5,16 @@ const BASE_ENDPOINT = 'customers'
 module.exports = (cl) => {
   const client = cl || require('../client').init()
 
+  /**
+   * Create account
+   * 
+   * @async
+   * @param {string} username
+   * @param {string} email
+   * @param {string} [name]
+   * @param {string} [company]
+   * @return {Promise<object>} Account's information
+   */
   const create = async (username = required(), email = required(), name, company) => {
     try {
       const acc = { username, email }
@@ -18,6 +28,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get account by ID
+   * 
+   * @async
+   * @param {string} accountId
+   * @return {Promise<object>} Account's information
+   */
   const get = async (accountId = required()) => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/${accountId}`)
@@ -27,6 +44,12 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Get own account
+   * 
+   * @async
+   * @return {Promise<object>} Account's information
+   */
   const myAccount = async () => {
     try {
       const { data } = await client.get(`${BASE_ENDPOINT}/my/account`)
@@ -36,6 +59,17 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Update account
+   * 
+   * @async
+   * @param {string} accountId
+   * @param {string} [name]
+   * @param {string} [email]
+   * @param {string} [company]
+   * @async
+   * @return {Promise<object>} Updated account's information
+   */
   const update = async (accountId = required(), name, email, company) => {
     try {
       const acc = {}
@@ -50,6 +84,13 @@ module.exports = (cl) => {
     }
   }
 
+  /**
+   * Remove account
+   * 
+   * @async
+   * @param {string} accountId 
+   * @return {Promise<object>} Removed account's information
+   */
   const remove = async (accountId = required()) => {
     const removed = get(accountId)
     try {
