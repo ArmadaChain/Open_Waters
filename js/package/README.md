@@ -2,6 +2,26 @@
 
 > Open Waters allows simple integration of decentralized Hedera Hashgraph technology into existing projects using the Armada Platform
 
+## Installation
+> npm install open-waters
+
+## How to use
+
+```javascript
+var ow = require('open-waters')
+
+// Init an open water client without api key
+var client = ow()
+
+// The return client exports only one function "account.create"
+var account = await client.account.create('username', 'email@a.a','name', 'company')
+
+// Re-init an open water client with api key created from account
+client = ow(account.privateKey)
+
+// Now you can access full functions
+```
+
 ## Functions:
 
 1. Account
