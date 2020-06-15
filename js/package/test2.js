@@ -5,13 +5,13 @@ const publicExample = async () => {
   const client = openWater()
 
   // The return client exports only one function "account.create"
-  const account = await client.account.create('kentm', 'bwonymph@gmail.com', 'Kent Makishima', 'ArmadaChain')
+  const account = await client.account.create('kentm', 'kent@armadachain.com', 'Kent Makishima', 'ArmadaChain')
   console.log(account.privateKey)
 }
 
 const authorizedExample = async () => {
   // Init an open water client with an apikey
-  const client = openWater('f4MCesAHYatVx5AQT2wn')
+  const client = openWater('')
 
   // The retun client exports all functions
   // For example, get all flows
