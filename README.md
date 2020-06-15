@@ -46,6 +46,13 @@ Open Waters is the simplest method to add Hedera Hashgraph to your supply chain 
     - ow.metric.countTransactions
     - ow.metric.lastCall
 
+## Working with the Armada Platform
+
+If interested in using the Armada Platform in your supply chain or company, contact us at contact@armadachain.io.
+
+## License
+
+See LICENSE for details. Armada Chain Inc 2020
 
 
 
