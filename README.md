@@ -1,6 +1,6 @@
 # Open Waters
 
-> *This module provides an easiest way to customer to inject itself into their existing project to send/retrieve encrypted data to Armada Platform All data will be send to Armada Consensus, encrypted and sent to HH using HCS and stored in Armada Consensus's database. The authentication and authorization is processed by an API key provided before*
+Open Waters is the simplest method to add Hedera Hashgraph to your supply chain or software. Using the [Armada Platform](https://armadachain.io), Open Waters offers straight forward interactions with Hedera Hashgraph including account creation, and sending data. Open Waters can also be used to access the benefits of the Armada Platform for data organization, conditional flows and managing supply chain interactions. 
 
 ## Functions:
 

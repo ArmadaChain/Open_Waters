@@ -9,15 +9,16 @@
 // ------- Script Begin ----------
 const openWater = require('../package') // requirements
 
-let privateKey = "CI8ZLhFRKGiSBYIC6FW0"
+let privateKey = ""
 
 const createAccount = async () => {
   // Init an open water client without api key
   console.log("Creating Hedera Hashgraph account!")
   let client = openWater()
   // The return client exports only one function "account.create"
-  const username = `someone${Math.random()}`
-  const email = `some@email${Math.random()}`
+  // You can change your account info on Armada Platform, set for anonymous for now
+  const username = `anon${Math.random()}`
+  const email = `anon@email${Math.random()}`
   const account = await client.account.create(username, email, 'name', 'a company')
   console.log("Created!")
   // Record api key for Open Waters
@@ -59,9 +60,9 @@ const topicMessageSend= async () => {
   await client.data.push(flow.id, memo, memo, false)
   
   // Get message from HH account 
-  console.log("Find your message from your HH account")
-  const data = await client.data.get(flow.id)
-  console.log("Here is your message", data)
+  // console.log("Find your message from your HH account")
+  // const data = await client.data.get(flow.id)
+  // console.log("Here is your message", data)
 }
 
 const run = async () => {
