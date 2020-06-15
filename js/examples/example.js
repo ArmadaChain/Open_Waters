@@ -4,7 +4,6 @@
 // This message will be posted on the Hedera Hashgraph mainnet, and can be found using a Hedera Hashgraph explorer
 // Message can also be found using the Open Waters API on the Armada Platform. 
 
-// To send messages to 
 
 // ------- Script Begin ----------
 const openWater = require('../package') // requirements
