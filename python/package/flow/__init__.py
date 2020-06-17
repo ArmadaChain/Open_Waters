@@ -12,7 +12,7 @@ class Flow:
             data['descriptions'] = descriptions
         if partners is not None:
             data['partners'] = partners
-        r = self.__client.post(self.__baseEndpoint, data)
+        r = self.__client.post(self.__baseEndpoint + "/", data)
         return r
 
     def get(self, flow_id):

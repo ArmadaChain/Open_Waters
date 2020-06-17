@@ -14,7 +14,7 @@ class Step:
             step['dataSet'] = data_set
         if data is not None:
             step['data'] = data
-        r = self.__client.post(self.__baseEndpoint, data)
+        r = self.__client.post(self.__baseEndpoint + "/", data)
         return r
 
     def get(self, step_id):
@@ -47,7 +47,7 @@ class Step:
         r = self.__client.put(self.__baseEndpoint + "/" + step_id, step)
         return r
 
-    def validate(self, step_id, is_completed: bool):
+    def validate(self, step_id, is_completed=True):
         r = self.__client.put(self.__baseEndpoint + "/" +
                               step_id + "/validate/" + is_completed)
         return r
