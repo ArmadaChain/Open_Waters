@@ -16,8 +16,8 @@ def run():
 
     # The return client exports only one function "account.create"
     # You can change your account info on Armada Platform, set for anonymous for now
-    username = 'anuser' + random.randint(0, 1000)
-    email = 'anemail' + random.randint(0, 1000)
+    username = 'anuser' + str(random.randint(0, 1000))
+    email = 'anemail' + str(random.randint(0, 1000))
     account = client.account.create(username, email, 'name', 'a company')
     print "Created!"
 
@@ -36,7 +36,7 @@ def run():
 
     print "Creating HCS Topic!"
     # Create Hedera Consensus Topic, known as Flows on Armada Platform
-    flow = client.flow.create('anonTopic-' + random.randint(0, 1000), "TRACK_TRACE")
+    flow = client.flow.create('anonTopic-' + str(random.randint(0, 1000)), "TRACK_TRACE")
 
     # Prompt for message to be sent to topic
     memo = input("What is the message you want to send? ")
