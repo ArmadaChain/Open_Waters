@@ -12,11 +12,15 @@ class Account:
             data['name'] = name
         if company is not None:
             data['company'] = company
-        r = self.__client.post('public/'+self.__baseEndpoint, data)
+        r = self.__client.post(self.__baseEndpoint + '/', data)
         return r
 
     def get(self, account_id):
         r = self.__client.get(self.__baseEndpoint + "/" + account_id)
+        return r
+
+    def my_account(self):
+        r = self.__client.get(self.__baseEndpoint + '/my/account')
         return r
 
     def update(self, account_id, name=None, email=None, company=None):

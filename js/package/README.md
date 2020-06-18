@@ -1,9 +1,6 @@
 # Open Waters
 
-> Open Waters allows simple integration of decentralized Hedera Hashgraph technology into existing projects using the Armada Platform
-
-## Installation
-> npm install open-waters
+Open Waters is the simplest method to add Hedera Hashgraph to your supply chain or software. Using the [Armada Platform](https://armadachain.io), Open Waters offers straight forward interactions with Hedera Hashgraph including account creation, and sending data. Open Waters can also be used to access the benefits of the Armada Platform for data organization, conditional flows and managing supply chain interactions.
 
 ## How to use
 
@@ -66,6 +63,12 @@ client = ow(account.privateKey)
     - ow.metric.countTransactions
     - ow.metric.lastCall
 
+## Working with the Armada Platform
 
+If interested in using the Armada Platform in your supply chain or company, contact us at contact@armadachain.io.
+
+## License
+
+See LICENSE for details. Armada Chain Inc 2020
 
 

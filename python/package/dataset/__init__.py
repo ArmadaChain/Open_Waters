@@ -10,7 +10,7 @@ class DataSet:
         keys = keys_types.keys()
         types = keys_types.values()
         data = {'fieldKeys': keys, 'fieldTypes': types, 'name': name}
-        r = self.__client.post(self.__baseEndpoint, data)
+        r = self.__client.post(self.__baseEndpoint + "/", data)
         return r
 
     def get(self, data_set_id):
