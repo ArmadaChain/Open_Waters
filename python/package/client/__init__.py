@@ -1,5 +1,6 @@
 import requests
 import copy
+import json
 from ..error import Errors
 
 
@@ -17,7 +18,7 @@ class Client:
         try:
             r = requests.post(url, json=data, headers=self.headers)
             r.raise_for_status()
-            return r.json()
+            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
 
@@ -28,7 +29,7 @@ class Client:
         try:
             r = requests.post(url, files=files, headers=headers)
             r.raise_for_status()
-            return r.json()
+            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
 
@@ -37,24 +38,24 @@ class Client:
         try:
             r = requests.put(url, json=data, headers=self.headers)
             r.raise_for_status()
-            return r.json()
+            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
 
     def get(self, url):
         url = self.__baseURL + url
         try:
-            r = requests.get(url)
+            r = requests.get(url, headers=self.headers)
             r.raise_for_status()
-            return r.json()
+            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
 
     def delete(self, url):
         url = self.__baseURL + url
         try:
-            r = requests.delete(url)
+            r = requests.delete(url, headers=self.headers)
             r.raise_for_status()
-            return r.json()
+            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
