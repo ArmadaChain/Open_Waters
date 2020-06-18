@@ -15,7 +15,6 @@ describe('account', function () {
 
     it('should return associated account info', async function () {
       const acc = await util.ow.account.myAccount()
-      console.log(acc)
       assert.equal(acc.id, conf.acc.normal.id)
       assert.equal(acc.privateKey, conf.acc.normal.key)
     })
@@ -27,6 +26,13 @@ describe('account', function () {
       const acc = await util.ow.account.get(conf.acc.normal.id)
       assert.equal(acc.id, conf.acc.normal.id)
       assert.equal(acc.privateKey, conf.acc.normal.key)
+    })
+  })
+
+  describe('get another account', function () {
+
+    it('should return error', async function () {
+      await assert.rejects(() => util.ow.account.get('CU000000010'))
     })
   })
 
@@ -42,10 +48,10 @@ describe('account', function () {
     })
   })
 
-  /* describe('remove()', function() {
-    it ('should create without error', async function() {
-      assert.doesNotThrow(await run.pkg().account.remove(conf.acc.normal.id))
+  describe('remove()', function() {
+    it ('should return error', async function() {
+      assert.throws(() => util.ow.account.remove(conf.acc.normal.id), 'TypeError: util.ow.account.remove is not a function')
     })
-  }) */
+  })
 
 })
