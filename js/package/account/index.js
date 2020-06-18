@@ -84,21 +84,5 @@ module.exports = (cl) => {
     }
   }
 
-  /**
-   * Remove account
-   * 
-   * @async
-   * @param {string} accountId 
-   * @return {Promise<object>} Removed account's information
-   */
-  const remove = async (accountId = required()) => {
-    const removed = get(accountId)
-    try {
-      await client.delete(`${BASE_ENDPOINT}/${accountId}`)
-      return removed
-    } catch (error) {
-      throw err.response(error)
-    }
-  }
-  return { create, get, update, remove, myAccount }
+  return { create, get, update, myAccount }
 }

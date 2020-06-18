@@ -57,12 +57,6 @@ client = ow(account.privateKey)
     - ow.step.update
     - ow.step.validate
 
-7. Metric
-    - ow.metric.countCalls
-    - ow.metric.countFlows
-    - ow.metric.countTransactions
-    - ow.metric.lastCall
-
 ## Working with the Armada Platform
 
 If interested in using the Armada Platform in your supply chain or company, contact us at contact@armadachain.io.

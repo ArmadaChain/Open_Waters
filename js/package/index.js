@@ -4,7 +4,6 @@ const document = require('./document')
 const flow = require('./flow')
 const step = require('./step')
 const data = require('./data')
-const metric = require('./metric')
 
 module.exports = (apikey) => {
   if (apikey) {
@@ -16,7 +15,6 @@ module.exports = (apikey) => {
       flow: flow(client),
       step: step(client),
       data: data(client),
-      metric: metric(client),
     }
   } else {
     return {
