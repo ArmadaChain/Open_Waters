@@ -34,6 +34,3 @@ class Account:
         r = self.__client.put(self.__baseEndpoint + "/" + account_id, data)
         return r
 
-    def delete(self, account_id):
-        r = self.__client.delete(self.__baseEndpoint + "/" + account_id)
-        return r
