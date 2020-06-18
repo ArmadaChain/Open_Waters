@@ -11,7 +11,7 @@ import random
 
 def run():
     # Init an open water client without api key
-    print "Creating Hedera Hashgraph account!"
+    print("Creating Hedera Hashgraph account!")
     client = OpenWater()
 
     # The return client exports only one function "account.create"
@@ -19,29 +19,29 @@ def run():
     username = 'anuser' + str(random.randint(0, 1000))
     email = 'anemail' + str(random.randint(0, 1000))
     account = client.account.create(username, email, 'name', 'a company')
-    print "Created!"
+    print("Created!")
 
     # Record api key for Open Waters
-    privateKey = account.privateKey
+    privateKey = account['privateKey']
     # Re-init an open water client with api key created from account
     client = OpenWater(privateKey)
 
     data = client.account.my_account()
-    HH_ID = data.hederaAccountId
+    HH_ID = data['hederaAccountId']
 
-    print "This is your Hedera Hashgraph account ID: " + HH_ID
-    print "Use this to check your message on Hedera Hashgraph"
-    print "This is your privateKey: " + privateKey
-    print "You can insert this in script to send messages without creating new topics"
+    print("This is your Hedera Hashgraph account ID: " + HH_ID)
+    print("Use this to check your message on Hedera Hashgraph")
+    print("This is your privateKey: " + privateKey)
+    print("You can insert this in script to send messages without creating new topics")
 
-    print "Creating HCS Topic!"
+    print("Creating HCS Topic!")
     # Create Hedera Consensus Topic, known as Flows on Armada Platform
     flow = client.flow.create('anonTopic-' + str(random.randint(0, 1000)), "TRACK_TRACE")
 
     # Prompt for message to be sent to topic
     memo = input("What is the message you want to send? ")
-    print "Got your message. Sending to HH..."
-    client.data.push(flow.id, memo, memo, False)
+    print("Got your message. Sending to HH...")
+    client.data.push(flow['id'], memo, memo, False)
 
 
 run()
