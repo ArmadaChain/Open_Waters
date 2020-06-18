@@ -25,7 +25,6 @@ client = ow(account.privateKey)
     - ow.account.create
     - ow.account.get
     - ow.account.myAccount
-    - ow.account.remove
     - ow.account.update
 
 2. Data

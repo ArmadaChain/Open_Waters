@@ -8,7 +8,6 @@ Open Waters is the simplest method to add Hedera Hashgraph to your supply chain 
     - ow.account.create
     - ow.account.get
     - ow.account.myAccount
-    - ow.account.remove
     - ow.account.update
 
 2. Data
@@ -39,12 +38,6 @@ Open Waters is the simplest method to add Hedera Hashgraph to your supply chain 
     - ow.step.remove
     - ow.step.update
     - ow.step.validate
-
-7. Metric
-    - ow.metric.countCalls
-    - ow.metric.countFlows
-    - ow.metric.countTransactions
-    - ow.metric.lastCall
 
 ## Working with the Armada Platform
 
