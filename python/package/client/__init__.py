@@ -5,7 +5,6 @@ from ..error import Errors
 
 
 class Client:
-
     headers = {'Content-type': 'application/json'}
     __baseURL = 'http://consensus.us-east-2.elasticbeanstalk.com/api/v1/'
 

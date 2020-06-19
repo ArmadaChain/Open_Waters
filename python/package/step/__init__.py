@@ -52,6 +52,6 @@ class Step:
                               step_id + "/validate/" + is_completed)
         return r
 
-    def delete(self, step_id):
+    def remove(self, step_id):
         r = self.__client.delete(self.__baseEndpoint + "/" + step_id)
         return r

@@ -34,6 +34,6 @@ class Flow:
         r = self.__client.put(self.__baseEndpoint + "/" + flow_id, data)
         return r
 
-    def delete(self, flow_id):
+    def remove(self, flow_id):
         r = self.__client.delete(self.__baseEndpoint + "/" + flow_id)
         return r
