@@ -1,11 +1,11 @@
-from .client import Client
-from .account import Account
-from .dataset import DataSet
-from .flow import Flow
-from .step import Step
-from .document import Document
-from .data import Data
-from .safe import Safe
+from package.open_waters.client import Client
+from package.open_waters.account import Account
+from package.open_waters.dataset import DataSet
+from package.open_waters.flow import Flow
+from package.open_waters.step import Step
+from package.open_waters.document import Document
+from package.open_waters.data import Data
+from package.open_waters.safe import Safe
 
 
 class OpenWater:
