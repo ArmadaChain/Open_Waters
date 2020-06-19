@@ -5,7 +5,7 @@
 # and can be found using a Hedera Hashgraph explorer Message can also be found using the Open Waters API on the
 # Armada Platform.
 
-from package import OpenWater
+from open_waters import OpenWater
 import random
 
 
