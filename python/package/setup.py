@@ -9,7 +9,7 @@ setup(
                      'projects using the Armada Platform',
     author='armada chain inc',
     author_email='kent@armadachain.io',
-    url='https://github.com/ArmadaChain/Open_Waters/tree/master/python/package',
+    url='https://github.com/ArmadaChain/Open_Waters/tree/master/python/package/open_waters',
     keywords=['hederahashgraph'],
     install_requires=[
         'requests'
