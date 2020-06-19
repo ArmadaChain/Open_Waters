@@ -36,7 +36,7 @@ class DataSet:
         :rtype: list
         :return: List of dataset
         """
-        r = self.__client.get(self.__baseEndpoint)
+        r = self.__client.get(self.__baseEndpoint + "/")
         return r
 
     def update(self, data_set_id: str, keys_types: dict = None, name: str = None) -> dict:
@@ -64,5 +64,6 @@ class DataSet:
         :param data_set_id: Dataset ID
         :return: Removed dataset
         """
-        r = self.__client.delete(self.__baseEndpoint + "/" + data_set_id)
+        r = self.get(data_set_id)
+        self.__client.delete(self.__baseEndpoint + "/" + data_set_id)
         return r

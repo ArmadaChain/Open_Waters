@@ -53,5 +53,6 @@ class Step:
         return r
 
     def remove(self, step_id):
-        r = self.__client.delete(self.__baseEndpoint + "/" + step_id)
+        r = self.get(step_id)
+        self.__client.delete(self.__baseEndpoint + "/" + step_id)
         return r

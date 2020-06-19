@@ -20,7 +20,7 @@ class Flow:
         return r
 
     def list(self):
-        r = self.__client.get(self.__baseEndpoint)
+        r = self.__client.get(self.__baseEndpoint + "/")
         return r
 
     def update(self, flow_id, name=None, descriptions=None, partners=None):
@@ -35,5 +35,6 @@ class Flow:
         return r
 
     def remove(self, flow_id):
-        r = self.__client.delete(self.__baseEndpoint + "/" + flow_id)
+        r = self.get(flow_id)
+        self.__client.delete(self.__baseEndpoint + "/" + flow_id)
         return r

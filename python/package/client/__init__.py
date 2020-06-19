@@ -6,7 +6,7 @@ from ..error import Errors
 
 class Client:
     headers = {'Content-type': 'application/json'}
-    __baseURL = 'http://consensus.us-east-2.elasticbeanstalk.com/api/v1/'
+    __baseURL = 'http://localhost:8080/api/v1/'
 
     def __init__(self, api_key):
         if api_key is not None:
@@ -55,6 +55,5 @@ class Client:
         try:
             r = requests.delete(url, headers=self.headers)
             r.raise_for_status()
-            return json.loads(r.text)
         except requests.exceptions.HTTPError as err:
             raise Errors.handle(err)
