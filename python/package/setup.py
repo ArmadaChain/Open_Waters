@@ -10,7 +10,6 @@ setup(
     author='armada chain inc',
     author_email='kent@armadachain.io',
     url='https://github.com/ArmadaChain/Open_Waters/tree/master/python/package',
-    download_url='https://github.com/user/reponame/archive/v_01.tar.gz',  # I explain this later on
     keywords=['hederahashgraph'],
     install_requires=[
         'requests'
