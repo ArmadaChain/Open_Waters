@@ -6,7 +6,7 @@ from ..error import Errors
 
 class Client:
     headers = {'Content-type': 'application/json'}
-    __baseURL = 'http://localhost:8080/api/v1/'
+    __baseURL = 'http://consensus.us-east-2.elasticbeanstalk.com/api/v1/'
 
     def __init__(self, api_key):
         if api_key is not None:
