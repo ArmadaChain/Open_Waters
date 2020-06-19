@@ -22,16 +22,16 @@ def run():
     print("Created!")
 
     # Record api key for Open Waters
-    privateKey = account['privateKey']
+    private_key: str = account['privateKey']
     # Re-init an open water client with api key created from account
-    client = OpenWater(privateKey)
+    client = OpenWater(private_key)
 
     data = client.account.my_account()
     HH_ID = data['hederaAccountId']
 
     print("This is your Hedera Hashgraph account ID: " + HH_ID)
     print("Use this to check your message on Hedera Hashgraph")
-    print("This is your privateKey: " + privateKey)
+    print("This is your privateKey: " + private_key)
     print("You can insert this in script to send messages without creating new topics")
 
     print("Creating HCS Topic!")
