@@ -16,9 +16,7 @@ setup(
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
-        'Intended Audience :: Developers',
-        'Topic :: Supply Chain :: Hederahashgraph:: Decentralization:: Dlt:: Blockchain',
-        'License :: ISC',
+        'License :: OSI Approved :: ISC',
         'Programming Language :: Python :: 3.6',
     ],
 )
