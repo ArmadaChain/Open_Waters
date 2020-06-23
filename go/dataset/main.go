@@ -30,7 +30,7 @@ func (m DataSet) Create(name string, kAndT ...KeysAndTypes) interface{} {
 		"fieldTypes": types,
 		"name": name,
 	}
-	return m.cl.Create(m.baseURL, data)
+	return m.cl.Create(m.baseURL + "/", data)
 }
 
 func (m DataSet) Update(dataSetId string, name string, kAndT ...KeysAndTypes) interface{} {
@@ -55,10 +55,12 @@ func (m DataSet) Get(dataSetId string) interface{} {
 	return m.cl.Get(m.baseURL+"/"+dataSetId)
 }
 
-func (m DataSet) Delete(dataSetId string) interface{} {
-	return m.cl.Delete(m.baseURL+"/"+dataSetId)
+func (m DataSet) Remove(dataSetId string) interface{} {
+	removed := m.Get(dataSetId)
+	m.cl.Delete(m.baseURL+"/"+dataSetId)
+	return removed
 }
 
 func (m DataSet) List() interface{} {
-	return m.cl.Get(m.baseURL)
+	return m.cl.Get(m.baseURL + "/")
 }

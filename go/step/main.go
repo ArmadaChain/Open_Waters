@@ -2,6 +2,7 @@ package step
 
 import (
 	"../client"
+	"strconv"
 )
 
 type Step struct {
@@ -9,63 +10,72 @@ type Step struct {
 	baseURL string
 }
 
+type Params struct {
+	stepNum int
+	validator string
+	flow string
+	documents []string
+	dataSet string
+	data interface{}
+}
+
 func New(client client.Client) Step {
 	return Step{cl: client, baseURL: "steps"}
 }
 
-func (m Step) Create(stepNum int, validator string, flow string, documents []string, dataSet string,
-		data interface{}) interface{} {
+func (m Step) Create(p Params) interface{} {
 	step := map[string]interface{}{
-		"stepNum": stepNum,
-		"validator": validator,
-		"flow": flow,
+		"stepNum": p.stepNum,
+		"validator": p.validator,
+		"flow": p.flow,
 	}
-	if documents != nil {
-		step["documents"] = documents
+	if p.documents != nil {
+		step["documents"] = p.documents
 	}
-	if dataSet != "" {
-		step["dataSet"] = dataSet
+	if p.dataSet != "" {
+		step["dataSet"] = p.dataSet
 	}
-	if data != nil {
-		step["data"] = data
+	if p.data != nil {
+		step["data"] = p.data
 	}
-	return m.cl.Create(m.baseURL, data)
+	return m.cl.Create(m.baseURL + "/", step)
 }
 
-func (m Step) Update(stepId string, stepNum int, validator string, flow string, documents []string,
-	dataSet string, data interface{}) interface{} {
+func (m Step) Update(stepId string, p Params) interface{} {
 	step := map[string]interface{}{}
-	if stepNum >= 0 {
-		step["stepNum"] = stepNum
+	if p.stepNum >= 0 {
+		step["stepNum"] = p.stepNum
 	}
-	if validator != "" {
-		step["validator"] = validator
+	if p.validator != "" {
+		step["validator"] = p.validator
 	}
-	if flow != "" {
-		step["flow"] = flow
+	if p.flow != "" {
+		step["flow"] = p.flow
 	}
-	if documents != nil {
-		step["documents"] = documents
+	if p.documents != nil {
+		step["documents"] = p.documents
 	}
-	if dataSet != "" {
-		step["dataSet"] = dataSet
+	if p.dataSet != "" {
+		step["dataSet"] = p.dataSet
 	}
-	if data != nil {
-		step["data"] = data
+	if p.data != nil {
+		step["data"] = p.data
 	}
-	return m.cl.Update(m.baseURL+"/"+stepId, data)
+	return m.cl.Update(m.baseURL+"/"+stepId, step)
 }
 
 func (m Step) Validate(stepId string, isCompleted bool) interface{} {
-	return m.cl.Update(m.baseURL+"/"+stepId+"/validate/"+isCompleted)
+	return m.cl.UpdateNoBody(m.baseURL+"/"+stepId+"/validate/"+strconv.FormatBool(isCompleted))
 }
 
 func (m Step) Get(stepId string) interface{} {
 	return m.cl.Get(m.baseURL+"/"+stepId)
 }
 
-func (m Step) Delete(stepId string) interface{} {
-	return m.cl.Delete(m.baseURL+"/"+stepId)
+func (m Step) Remove(stepId string) interface{} {
+	removed := m.Get(stepId)
+	m.cl.Delete(m.baseURL+"/"+stepId)
+	return removed
 }
 
 func (m Step) ListByFlow(flowId string, validator string) interface{} {
@@ -73,5 +83,5 @@ func (m Step) ListByFlow(flowId string, validator string) interface{} {
 	if validator != "" {
 		queries = "&validator="+validator
 	}
-	return m.cl.Get("flows/"+flowId+"/"+m.baseURL+queries)
+	return m.cl.Get("flows/"+flowId+"/"+m.baseURL+"/"+queries)
 }

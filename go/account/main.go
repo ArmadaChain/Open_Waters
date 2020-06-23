@@ -14,6 +14,13 @@ type PublicAccount struct {
 	baseURL string
 }
 
+type Params struct {
+	username string
+	email string
+	name string
+	company string
+}
+
 func New(client client.Client) Account {
 	return Account{cl: client, baseURL: "customers"}
 }
@@ -22,46 +29,46 @@ func NewPublic(client client.Client) PublicAccount {
 	return PublicAccount{cl: client, baseURL: "customers"}
 }
 
-func (m Account) Create(username string, email string, name string, company string) interface{} {
+func (m Account) Create(p Params) interface{} {
 	data := map[string]interface{}{
-		username: username,
-		email: email,
+		"username": p.username,
+		"email": p.email,
 	}
-	if name != "" {
-		data["name"] = name
+	if p.name != "" {
+		data["name"] = p.name
 	}
-	if company != "" {
-		data["company"] = company
+	if p.company != "" {
+		data["company"] = p.company
 	}
 
-	return m.cl.Create("public/"+m.baseURL, data)
+	return m.cl.Create(m.baseURL + "/", data)
 }
 
-func (p PublicAccount) Create(username string, email string, name string, company string) interface{} {
+func (pc PublicAccount) Create(p Params) interface{} {
 	data := map[string]interface{}{
-		username: username,
-		email: email,
+		"username": p.username,
+		"email": p.email,
 	}
-	if name != "" {
-		data["name"] = name
+	if p.name != "" {
+		data["name"] = p.name
 	}
-	if company != "" {
-		data["company"] = company
+	if p.company != "" {
+		data["company"] = p.company
 	}
 
-	return p.cl.Create("public/"+p.baseURL, data)
+	return pc.cl.Create(pc.baseURL + "/", data)
 }
 
-func (m Account) Update(accountId string, email string, name string, company string) interface{} {
+func (m Account) Update(accountId string, p Params) interface{} {
 	data := map[string]interface{}{}
-	if email != "" {
-		data["email"] = email
+	if p.email != "" {
+		data["email"] = p.email
 	}
-	if name != "" {
-		data["name"] = name
+	if p.name != "" {
+		data["name"] = p.name
 	}
-	if company != "" {
-		data["company"] = company
+	if p.company != "" {
+		data["company"] = p.company
 	}
 
 	return m.cl.Update(m.baseURL+"/"+accountId, data)
@@ -69,9 +76,5 @@ func (m Account) Update(accountId string, email string, name string, company str
 
 func (m Account) Get(accountId string) interface{} {
 	return m.cl.Get(m.baseURL+"/"+accountId)
-}
-
-func (m Account) Delete(accountId string) interface{} {
-	return m.cl.Delete(m.baseURL+"/"+accountId)
 }
 

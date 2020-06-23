@@ -18,7 +18,7 @@ type Client struct {
 }
 
 func New(apiKey string) Client {
-	url := "http://consensus.us-east-2.elasticbeanstalk.com/"
+	url := "http://consensus.us-east-2.elasticbeanstalk.com/api/v1/"
 	cl := &http.Client{
 		Timeout: time.Minute * 5,
 	}
@@ -26,9 +26,9 @@ func New(apiKey string) Client {
 	return clt
 }
 
-func auth(req *http.Request, apikey string) {
-	if apikey != "" {
-		req.Header.Set("Authorization", apikey)
+func auth(req *http.Request, key string) {
+	if key != "" {
+		req.Header.Set("Authorization", key)
 	}
 }
 
@@ -38,8 +38,7 @@ func setJSON(req *http.Request) {
 
 func response(resp *http.Response) interface{} {
 	var result map[string]interface{}
-	return json.NewDecoder(resp.Body).Decode(result)
-	return result
+	return json.NewDecoder(resp.Body).Decode(&result)
 }
 
 func (clt Client) Create(url string, data interface{}) interface{} {
@@ -74,6 +73,23 @@ func (clt Client) Update(url string, data interface{}) interface{} {
 	}
 
 	req, err := http.NewRequest("PUT", url, bytes.NewBuffer(body))
+	if err != nil {
+		log.Fatalln(err)
+	}
+	auth(req, clt.apiKey)
+	setJSON(req)
+
+	resp, err := clt.client.Do(req)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	return response(resp)
+}
+
+func (clt Client) UpdateNoBody(url string) interface{} {
+	url = clt.url + url
+
+	req, err := http.NewRequest("PUT", url, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
@@ -153,7 +169,7 @@ func (clt Client) Upload(url string, filename string) interface{} {
 		log.Fatalln(err)
 	}
 
-	multiPartWriter.Close()
+	_ = multiPartWriter.Close()
 
 	req, err := http.NewRequest("POST", url, &requestBody)
 	if err != nil {
@@ -168,3 +184,4 @@ func (clt Client) Upload(url string, filename string) interface{} {
 	}
 	return response(resp)
 }
+

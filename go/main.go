@@ -21,24 +21,26 @@ type noKey struct {
 	Account account.PublicAccount
 }
 
-func WithKey(apiKey string) withKey {
+func _(apiKey string) withKey {
 	var ow withKey
-	client := client.New(apiKey)
+	cl := client.New(apiKey)
 	ow = withKey{
-		Account: account.New(client),
-		DataSet: dataset.New(client),
-		Flow: flow.New(client),
-		Step: step.New(client),
-		Document: document.New(client),
+		Account: account.New(cl),
+		DataSet: dataset.New(cl),
+		Flow: flow.New(cl),
+		Step: step.New(cl),
+		Document: document.New(cl),
 	}
 	return ow
 }
 
-func NoKey() noKey {
+func _() noKey {
 	var ow noKey
-	client := client.New("")
+	var (
+		cl = client.New("")
+	)
 	ow = noKey{
-		Account: account.NewPublic(client),
+		Account: account.NewPublic(cl),
 	}
 	return ow
 }
