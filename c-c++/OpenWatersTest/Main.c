@@ -4,7 +4,7 @@
 
 int main()
 {
-	OpenWaters *ow = CreateOpenWaters("XriiU6sm19UUCJwm15ky");
+	OpenWaters *ow = CreateOpenWaters(""); //Insert Key
 	SetData("123", NULL, NULL, ow);
 	int code = GetRequest(ow);
 	//SetData("123", "{lat: 37.7749, long: 122.4194, id: 12}", "checking", ow);

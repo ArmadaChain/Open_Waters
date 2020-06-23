@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - cd js/test
+      - npm install 
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm start
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - "**/*"
+  base-directory: 'js/test/report'
+

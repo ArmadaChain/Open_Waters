@@ -1,87 +1,81 @@
 # Open Waters
 
-> *This module provides an easiest way to customer to inject itself into their existing project to send/retrieve encrypted data to Armada Platform All data will be send to Armada Consensus, encrypted and sent to HH using HCS and stored in Armada Consensus's database. The authentication and authorization is processed by an API key provided before*
+Open Waters is the simplest method to add Hedera Hashgraph to your supply chain or software. Using the [Armada Platform](https://armadachain.io), Open Waters offers straight forward interactions with Hedera Hashgraph including account creation, and sending data. Open Waters can also be used to access the benefits of the Armada Platform for data organization, conditional flows and managing supply chain interactions. 
 
 ## Functions:
 
-- ** General **
-- Create_Account
-- Get_Account_Details 
-- Get_Private_Key
-- Update_Account_Details
-- ** Business Flows **
-- Create_Flow
-- List_Active_Flows
-- Destroy_Flow
-- Get_Flow_Info
-- Flow_Add_Step
-- Flow_Delete_Step
-- Flow_Validate_Step
-- Flow_Upload_Document
-- Flow_Modify_Step
-- Modify_Flow
-- Upload_Document
-- ** Information **
-- Send Data
-- Call Data
-- Audit Data
-- **Notifications **
-- Notifications
-- ** Future **
-- Create Asset
-- Delete Asset
-- Modify Asset
-- Transfer Asset
-- Assign Asset
+### Account
+Account functions handle account creation and management on the Armada Platform and Hedera Hashgraph. 
+#### create
+    - Creates Armada account with associated Hedera Hashgraph account. The Armada ID is used as an identifier for functions and activities on the platform.   
+#### get
+    - Calls account information by the Armada ID.
+#### myAccount
+    - Returns information about the caller's account.
+#### update
+    - Updates account information for Armada ID. 
+
+### Flow
+Flows are data sets on the Armada Platform for supply chain processes. Each flow is represented as Hedera Consensus Topic on Hedera Hashgraph. A flow can consists of steps to create conditional logic in the supply chain. 
+#### create
+    - Creates a flow. A flow can be of two types: Track and Trace which includes the steps structure or Data Audit which serves as a transaction list. 
+#### get
+    - Get returns flow information for Flow ID.
+#### list
+    - Returns all flows associated with caller's ID.
+#### update
+    - Update flow information for Flow ID.
+
+### Data
+Data functions handle interactions with Armada Flows/Hedera Consensus Topics. To be used mainly with Data Audit Flows. 
+#### get
+    - Retrieves data from Armada Flow/Consensus Topic in list format
+#### push
+    - Push data to Armada Flow/Consensus Topic. Option to encrypt data.
+
+### Step
+Step functions handle creation and updates for steps in a track & trace flow. 
+#### create
+    - Create step for flow.
+#### get
+    - Get flow. 
+#### listByFlow
+    - Lists all steps 
+#### remove
+    - Removes a specific step from flow.
+#### update
+    - Updates step parameters in flow. 
+#### validate
+    - Validate is called by validator in step to approve steps completion. Flow then proceeds to next step. 
+
+### Dataset
+Data sets are data structures for a specific step in a flow. This can be for example x amount of goods manufactured, or y amount of goods received. 
+#### create
+    - Create a data set.
+#### get
+    - Get information for data set by ID. 
+#### list
+    - List all data sets. 
+#### remove
+    - Remove a data set by ID.
+#### update
+    - Update data set by ID.
+
+### Document
+Document function allows user to upload a document to the Armada Platform which is then hashed and sent to Hedera Hashgraph.
+#### upload
+    - Upload document. 
 
 
-### Specifics
+Specific parameters for each function can be found in select language's module. 
 
-Create_Account()
-: Create new Armada Account
+## Working with the Armada Platform
 
-Get_Account_Details()
-: Get associated information to account: Username, name, company, Armada ID
+If interested in using the Armada Platform in your supply chain or company, contact us at contact@armadachain.io.
 
-Get_Private_Key()
-: Get Private key associated to account used to encrypt information
+## License
 
-Update_Account_Details(String Field, Char input)
-: Update respective field of account
-
-Create_Flow(String Name, String Description, ArmadaID Partners, String Flow type)
-: Create a new business flow 
-: Returns Business Flow ID 
-
-List_Active_Flows()
-: Returns all active business flows in list format with name and ID
-
-Destroy_Flow(ArmadaID Business Flow ID)
-: Destroys business flow from ID
-: Requires approval from majority of partners
-
-Get_Business_Flow_Info
-: Return number of steps 
-: Return parties involved
-
-Flow_Add_Step(ArmadaID Business Flow ID, int stepNum, Armada ID validator, data data)
-: Add new step to business flow
-: Data will be parameters same as in the web interface
-
-Flow_Delete_Step(ArmadaID Business Flow ID, int stepNum)
-: Delete Step from Business Flow
-
-Flow_Validate_Step(ArmadaID Business Flow ID, int stepNum)
-: Validate step in business flow
-: Must be from assigned validated party (not sure how we will validate for now)
-
-Flow_Upload_Document(ArmadaID Business Flow ID, Document Document)
-: Upload document to specific step in business flow
-
-Flow_Modify_Step(ArmadaID Business Flow ID, int stepNum, data data)
-: Modify existing step in business flow
-: Need to define data that is going to be repalced (will improve this process)
-
+See LICENSE for details. Armada Chain Inc 2020
 
 
 
