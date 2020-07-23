@@ -12,9 +12,9 @@ let acc1, acc2, acc3, flow, dataSet, step1, step2, step3
  * TO PREVENT DUPLICATED ACCOUNTS, IT'S IMPORTANT TO UPDATE PRIVATE KEY OF 3 ACCOUNTS BELOW 
  * FOR THE FIRST TIME, DON'T NEED TO UPDATE
  */
-let privateKey_acc1 = 'TkwXbHdpmzi45NupT6mb'
-let privateKey_acc2 = '69ACLCV2PkLfy2Au9TTx'
-let privateKey_acc3 = 'fxHmyDh8lJDwY8rreZDg'
+let privateKey_acc1 = ''
+let privateKey_acc2 = ''
+let privateKey_acc3 = ''
 
 
 async function createAccount1() {
