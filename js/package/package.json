@@ -1,6 +1,6 @@
 {
   "name": "open-waters",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Open Waters allows simple integration of decentralized Hedera Hashgraph technology into existing projects using the Armada Platform",
   "main": "index.js",
   "keywords": [
