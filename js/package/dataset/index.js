@@ -17,7 +17,7 @@ module.exports = (cl) => {
     try {
       const fieldKeys = Object.keys(keysAndTypes)
       const fieldTypes = fieldKeys.map((k) => keysAndTypes[k])
-      const dataset = { fieldKeys, fieldTypes, name }
+      const dataset = { fieldKeys: fieldKeys.join(';'), fieldTypes: fieldTypes.join(';'), name }
 
       const { data } = await client.post(`${BASE_ENDPOINT}/`, dataset)
       return data

@@ -2,6 +2,7 @@ const err = require('../error')
 const { required } = require('../validation')
 const fs = require('fs')
 const BASE_ENDPOINT = 'documents'
+const FormData = require('form-data')
 
 module.exports = (cl) => {
   const client = cl || require('../client').init()
@@ -17,11 +18,7 @@ module.exports = (cl) => {
     try {
       const formData = new FormData()
       formData.append('file', fs.createReadStream(filePath))
-      const { data } = await client.post(`${BASE_ENDPOINT}/upload`,
-        {
-          data: formData,
-          headers: { 'Content-Type': 'multipart/form-data' }
-        })
+      const { data } = await client.post(`${BASE_ENDPOINT}/upload`, formData, { headers: formData.getHeaders() })
       return data
     } catch (error) {
       throw err.response(error)
